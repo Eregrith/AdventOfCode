@@ -12,18 +12,22 @@ namespace AdventOfCode2019.Opcodes
 
         public void Execute(IntcodeContext context)
         {
-            if (context.Mode == IntcodeMode.Verbose)
+            if (context.Mode.HasFlag(IntcodeMode.Verbose))
                 Console.WriteLine(Describe(context));
             InnerExecute(context);
         }
 
         public string Describe(IntcodeContext context)
         {
-            string desc = context.InstructionPointer + ": ";
+            string desc = "";
+            if (!String.IsNullOrEmpty(context.Id))
+                desc += "{ " + context.Id + " } ";
+            desc += context.InstructionPointer + ": ";
             desc += this.GetType().Name;
             if (Params > 0)
                 desc += " [" + String.Join(", ", Enumerable.Range(1, Params).Select(
-                    i => context.Data[context.InstructionPointer + i].ToString() + (context.ParamIsInImmediateMode(i) ? 'i' : 'p')
+                    i => "@"+ (context.InstructionPointer + i) + " " + context.Data[context.InstructionPointer + i].ToString() + (context.ParamIsInImmediateMode(i) ? ("i (=" + context.Data[context.InstructionPointer + i])
+                        : "p (=" + (context.Data[context.Data[context.InstructionPointer + i]])) + ")"
                 )) + "]";
             return desc;
         }

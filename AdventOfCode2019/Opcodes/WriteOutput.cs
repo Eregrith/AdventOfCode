@@ -11,7 +11,9 @@ namespace AdventOfCode2019.Opcodes
         protected override void InnerExecute(IntcodeContext context)
         {
             int output = context.Read(1);
-            Console.WriteLine("Output: " + output);
+            if (!context.Mode.HasFlag(IntcodeMode.Quiet))
+                Console.WriteLine("Output: " + output);
+            context.OutputQueue.Enqueue(output);
             context.InstructionPointer += 2;
         }
     }

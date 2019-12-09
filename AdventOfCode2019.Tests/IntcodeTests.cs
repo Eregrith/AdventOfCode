@@ -3,6 +3,7 @@ using FluentAssertions;
 using System;
 using System.IO;
 using Moq;
+using System.Threading;
 
 namespace AdventOfCode2019.Tests
 {
@@ -20,7 +21,7 @@ namespace AdventOfCode2019.Tests
         }
 
         [Test]
-        public void Opcodes_3_and_4_Read_and_Write_To_Console()
+        public void Opcodes_3_and_4_Read_and_Write_To_Console_When_Input_Queue_Is_Empty()
         {
             int[] data = new[] { 3, 0, 4, 0, 99 };
             int input = 1234;
@@ -35,6 +36,53 @@ namespace AdventOfCode2019.Tests
 
             mockTextWriter.Verify(m => m.Write("Input: "));
             mockTextWriter.Verify(m => m.WriteLine("Output: " + input));
+        }
+
+        [Test]
+        public void Opcodes_3_Should_Read_From_Input_Queue_When_It_Is_Not_Empty()
+        {
+            int[] data = new[] { 3, 0, 4, 0, 99 };
+            int input = 1234;
+            Mock<TextWriter> mockTextWriter = new Mock<TextWriter>();
+            Console.SetOut(mockTextWriter.Object);
+            Intcode computerTested = new Intcode(data);
+            computerTested.InputQueue.Enqueue(input);
+
+            computerTested.Run();
+
+            mockTextWriter.Verify(m => m.Write("Input: "), Times.Never);
+            mockTextWriter.Verify(m => m.WriteLine("Output: " + input), Times.Once);
+        }
+
+        [Test]
+        public void Opcodes_3_Should_Wait_For_Input_Queue_When_In_Blocking_Mode()
+        {
+            int[] data = new[] { 3, 0, 4, 0, 99 };
+            int input = 1234;
+            Mock<TextWriter> mockTextWriter = new Mock<TextWriter>();
+            Console.SetOut(mockTextWriter.Object);
+            Intcode computerTested = new Intcode(data, IntcodeMode.Blocking);
+
+            new Thread(() => computerTested.Run()).Start();
+
+            computerTested.InputQueue.Enqueue(input);
+            mockTextWriter.Verify(m => m.Write("Input: "), Times.Never);
+            mockTextWriter.Verify(m => m.WriteLine("Output: " + input), Times.Once);
+        }
+
+        [Test]
+        public void Opcodes_4_Should_Also_Write_To_OutputQueue()
+        {
+            int[] data = new[] { 3, 0, 4, 0, 99 };
+            int input = 1234;
+            Mock<TextWriter> mockTextWriter = new Mock<TextWriter>();
+            Console.SetOut(mockTextWriter.Object);
+            Intcode computerTested = new Intcode(data);
+            computerTested.InputQueue.Enqueue(input);
+
+            computerTested.Run();
+
+            computerTested.OutputQueue.Enqueue(input);
         }
 
         [Test]
@@ -60,8 +108,8 @@ namespace AdventOfCode2019.Tests
 
             int result = computerTested.Run();
 
-            mockTextWriter.Verify(m => m.WriteLine("0: Multiply [8p, 3i, 8p]"));
-            mockTextWriter.Verify(m => m.WriteLine("4: Add [8p, 0i, 0p]"));
+            mockTextWriter.Verify(m => m.WriteLine("0: Multiply [@1 8p (=33), @2 3i (=3), @3 8p (=33)]"));
+            mockTextWriter.Verify(m => m.WriteLine("4: Add [@5 8p (=99), @6 0i (=0), @7 0p (=1002)]"));
             mockTextWriter.Verify(m => m.WriteLine("8: Finish"));
         }
 

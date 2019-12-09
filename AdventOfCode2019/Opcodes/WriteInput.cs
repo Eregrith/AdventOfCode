@@ -10,9 +10,19 @@ namespace AdventOfCode2019.Opcodes
 
         protected override void InnerExecute(IntcodeContext context)
         {
-            Console.Write("Input: ");
-            string input = Console.ReadLine();
-            context.Write(1, int.Parse(input));
+            int value = 0;
+            if (context.InputQueue.Count > 0 || context.Mode.HasFlag(IntcodeMode.Blocking))
+            {
+                while (context.InputQueue.Count == 0);
+                value = context.InputQueue.Dequeue();
+            }
+            else
+            {
+                Console.Write("Input: ");
+                string input = Console.ReadLine();
+                value = int.Parse(input);
+            }
+            context.Write(1, value);
             context.InstructionPointer += 2;
         }
     }
