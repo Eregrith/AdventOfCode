@@ -54,30 +54,33 @@ namespace AdventOfCode2019
         public static void PartTwo()
         {
             string input = InputHelper.GetInputFromFile("8");
+            int width = 25;
+            int height = 6;
             List<Layer> layers = new List<Layer>();
             int i = 0;
-            while (i + 25 * 6 < input.Length)
+            while (i + (width * height) - 1 < input.Length)
             {
-                string layerString = input.Substring(i, 25 * 6);
+                string layerString = input.Substring(i, width * height);
                 Layer l = new Layer();
-                for (int x = 0; x < 25; x++)
+                for (int x = 0; x < width; x++)
                 {
-                    for (int y = 0; y < 6; y++)
+                    for (int y = 0; y < height; y++)
                     {
-                        l.Pixels[x, y] = layerString[x + (y * 25)] - '0';
+                        l.Pixels[x, y] = layerString[x + (y * width)] - '0';
                     }
                 }
                 layers.Add(l);
-                i += (25 * 6);
+                i += (width * height);
             }
 
-            Bitmap bmp = new Bitmap(25, 6);
-            for (int x = 0; x < 25; x++)
+            Bitmap bmp = new Bitmap(width, height);
+            for (int x = 0; x < width; x++)
             {
-                for (int y = 0; y < 6; y++)
+                for (int y = 0; y < height; y++)
                 {
                     foreach (Layer l in layers)
                     {
+                        bmp.SetPixel(x, y, Color.Transparent);
                         if (l.Pixels[x, y] == 2) continue;
                         Color color = l.Pixels[x, y] == 0 ? Color.Black : Color.White;
                         bmp.SetPixel(x, y, color);

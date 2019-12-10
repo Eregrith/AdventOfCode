@@ -234,5 +234,16 @@ namespace AdventOfCode2019.Tests
 
             result.Should().Be(0);
         }
+
+        [Test]
+        public void Opcode_9_Should_Offset_Relative_Base_For_Parameters_In_Relative_Mode()
+        {
+            int[] data = new[] { 109, 2, 2201, 0, 0, 0, 99 };
+            Intcode computerTested = new Intcode(data);
+
+            int result = computerTested.Run();
+
+            result.Should().Be(4402);
+        }
     }
 }

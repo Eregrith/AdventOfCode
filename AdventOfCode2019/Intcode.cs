@@ -25,13 +25,15 @@ namespace AdventOfCode2019
         public bool IsFinished { get; set; } = false;
         public int InstructionPointer { get; set; } = 0;
         public int CurrentOpcode => Data[InstructionPointer] % 100;
+        public int RelativeBase = 0;
 
-        public int Read(int offset) => ParamIsInImmediateMode(offset) ? ValueAt(offset) : Data[ValueAt(offset)];
+        public int Read(int offset) => ParamIsInImmediateMode(offset) ? ValueAt(offset) : (ParamIsInRelativeMode(offset) ? Data[ValueAt(offset) + RelativeBase] : Data[ValueAt(offset)]);
 
         private int ValueAt(int offset) => Data[InstructionPointer + offset];
 
         public void Write(int offset, int value) => Data[Data[InstructionPointer + offset]] = value;
         public bool ParamIsInImmediateMode(int offset) => Data[InstructionPointer] / (10 * (int)Math.Pow(10, offset)) % 10 == 1;
+        public bool ParamIsInRelativeMode(int offset) => Data[InstructionPointer] / (10 * (int)Math.Pow(10, offset)) % 10 == 2;
 
         public IntcodeContext(int[] data, IntcodeMode mode, string id)
         {
@@ -62,6 +64,7 @@ namespace AdventOfCode2019
             [6] = new JumpIfFalse(),
             [7] = new LessThan(),
             [8] = new Equals(),
+            [9] = new OffsetRelativeBase(),
             [99] = new Finish()
         };
 
