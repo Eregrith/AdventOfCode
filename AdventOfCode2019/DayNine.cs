@@ -9,8 +9,20 @@ namespace AdventOfCode2019
     {
         public static void PartOne()
         {
-            int[] data = InputHelper.GetIntcodeFromFile("9");
+            long[] data = InputHelper.GetIntcodeFromFile("9");
 
+            Intcode i = new Intcode(data);
+            i.InputQueue.Enqueue(1);
+            i.Run();
+        }
+
+        public static void PartTwo()
+        {
+            long[] data = InputHelper.GetIntcodeFromFile("9");
+
+            Intcode i = new Intcode(data);
+            i.InputQueue.Enqueue(2);
+            i.Run();
         }
     }
 }

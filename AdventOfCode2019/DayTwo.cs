@@ -10,22 +10,22 @@ namespace AdventOfCode2019
     {
         public static void PartOne()
         {
-            string input = InputHelper.GetInputFromFile("2");
+            long[] data = InputHelper.GetIntcodeFromFile("2");
 
-            Intcode i = new Intcode(input.Split(",").Select(i => int.Parse(i)).ToArray());
+            Intcode i = new Intcode(data);
 
             Console.Write(i.Run(12, 2));
         }
 
         public static void PartTwo()
         {
-            string input = InputHelper.GetInputFromFile("2");
+            long[] data = InputHelper.GetIntcodeFromFile("2");
 
             for (int noun = 0; noun < 100; noun++)
             {
                 for (int verb = 0; verb < 100; verb++)
                 {
-                    Intcode i = new Intcode(input.Split(",").Select(i => int.Parse(i)).ToArray());
+                    Intcode i = new Intcode(data);
                     if (i.Run(noun, verb) == 19690720)
                     {
                         Console.WriteLine($"{noun} {verb}");

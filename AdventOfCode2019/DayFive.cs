@@ -10,9 +10,9 @@ namespace AdventOfCode2019
     {
         public static void PartOneAndTwo()
         {
-            string input = InputHelper.GetInputFromFile("5");
+            long[] data = InputHelper.GetIntcodeFromFile("5");
 
-            Intcode i = new Intcode(input.Split(",").Select(i => int.Parse(i)).ToArray());
+            Intcode i = new Intcode(data);
             i.Run();
         }
     }

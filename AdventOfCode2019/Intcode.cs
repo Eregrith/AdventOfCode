@@ -17,27 +17,36 @@ namespace AdventOfCode2019
 
     public class IntcodeContext
     {
-        public Queue<int> InputQueue { get; set; } = new Queue<int>();
-        public Queue<int> OutputQueue { get; set; } = new Queue<int>();
+        public Queue<long> InputQueue { get; set; } = new Queue<long>();
+        public Queue<long> OutputQueue { get; set; } = new Queue<long>();
         public IntcodeMode Mode { get; }
-        public int[] Data { get; }
+        public long[] Data { get; }
         public string Id { get; }
         public bool IsFinished { get; set; } = false;
-        public int InstructionPointer { get; set; } = 0;
-        public int CurrentOpcode => Data[InstructionPointer] % 100;
-        public int RelativeBase = 0;
+        public long InstructionPointer { get; set; } = 0;
+        public long CurrentOpcode => Data[InstructionPointer] % 100;
+        public long RelativeBase = 0;
 
-        public int Read(int offset) => ParamIsInImmediateMode(offset) ? ValueAt(offset) : (ParamIsInRelativeMode(offset) ? Data[ValueAt(offset) + RelativeBase] : Data[ValueAt(offset)]);
+        public long Read(long offset) => ParamIsInImmediateMode(offset) ? ValueAt(offset) : (ParamIsInRelativeMode(offset) ? Data[ValueAt(offset) + RelativeBase] : Data[ValueAt(offset)]);
 
-        private int ValueAt(int offset) => Data[InstructionPointer + offset];
+        private long ValueAt(long offset) => Data[InstructionPointer + offset];
 
-        public void Write(int offset, int value) => Data[Data[InstructionPointer + offset]] = value;
-        public bool ParamIsInImmediateMode(int offset) => Data[InstructionPointer] / (10 * (int)Math.Pow(10, offset)) % 10 == 1;
-        public bool ParamIsInRelativeMode(int offset) => Data[InstructionPointer] / (10 * (int)Math.Pow(10, offset)) % 10 == 2;
-
-        public IntcodeContext(int[] data, IntcodeMode mode, string id)
+        public void Write(long offset, long value)
         {
-            Data = data;
+            if (ParamIsInRelativeMode(offset))
+                Data[Data[InstructionPointer + offset] + RelativeBase] = value;
+            else
+                Data[Data[InstructionPointer + offset]] = value;
+        }
+
+        public bool ParamIsInImmediateMode(long offset) => Data[InstructionPointer] / (10 * (long)Math.Pow(10, offset)) % 10 == 1;
+        public bool ParamIsInRelativeMode(long offset) => Data[InstructionPointer] / (10 * (long)Math.Pow(10, offset)) % 10 == 2;
+
+        public IntcodeContext(long[] data, IntcodeMode mode, string id)
+        {
+            Data = new long[2048];
+            for (int i = 0; i < data.Length; i++)
+                Data[i] = data[i];
             Mode = mode;
             Id = id;
         }
@@ -52,9 +61,9 @@ namespace AdventOfCode2019
     public class Intcode
     {
         private IntcodeContext Context { get; set; }
-        public Queue<int> InputQueue { get => Context.InputQueue; set => Context.InputQueue = value; }
-        public Queue<int> OutputQueue { get => Context.OutputQueue; set => Context.OutputQueue = value; }
-        private Dictionary<int, Opcode> Opcodes = new Dictionary<int, Opcode>
+        public Queue<long> InputQueue { get => Context.InputQueue; set => Context.InputQueue = value; }
+        public Queue<long> OutputQueue { get => Context.OutputQueue; set => Context.OutputQueue = value; }
+        private Dictionary<long, Opcode> Opcodes = new Dictionary<long, Opcode>
         {
             [1] = new Add(),
             [2] = new Multiply(),
@@ -68,19 +77,19 @@ namespace AdventOfCode2019
             [99] = new Finish()
         };
 
-        public Intcode(int[] data, IntcodeMode mode = IntcodeMode.None, string id = null)
+        public Intcode(long[] data, IntcodeMode mode = IntcodeMode.None, string id = null)
         {
             Context = new IntcodeContext(data, mode, id);
         }
 
-        public int Run(int noun, int verb)
+        public long Run(int noun, int verb)
         {
             Context.Data[1] = noun;
             Context.Data[2] = verb;
             return Run();
         }
 
-        public int Run()
+        public long Run()
         {
             while (!Context.IsFinished)
                 Opcodes[Context.CurrentOpcode].Execute(Context);

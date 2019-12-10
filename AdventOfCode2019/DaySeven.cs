@@ -58,12 +58,12 @@ namespace AdventOfCode2019
 
         public static void PartOne()
         {
-            int[] data = InputHelper.GetIntcodeFromFile("7");
+            long[] data = InputHelper.GetIntcodeFromFile("7");
 
             List<int> phases = new List<int> { 0, 1, 2, 3, 4 };
 
             var allPhases = Permute(phases);
-            Dictionary<int, List<int>> outputPerPhase = new Dictionary<int, List<int>>();
+            Dictionary<long, List<int>> outputPerPhase = new Dictionary<long, List<int>>();
             foreach (IEnumerable<int> p in allPhases)
             {
                 var phase = p.ToList();
@@ -87,7 +87,7 @@ namespace AdventOfCode2019
                 e.InputQueue.Enqueue(phase[4]);
                 e.InputQueue.Enqueue(d.OutputQueue.Dequeue());
                 e.Run();
-                int output = e.OutputQueue.Dequeue();
+                long output = e.OutputQueue.Dequeue();
                 outputPerPhase.Add(output, phase);
                 Console.WriteLine($"Phase {String.Join(',', phase)} produces output {output}");
             }
@@ -97,12 +97,12 @@ namespace AdventOfCode2019
 
         public static void PartTwo()
         {
-            int[] data = InputHelper.GetIntcodeFromFile("7");
+            long[] data = InputHelper.GetIntcodeFromFile("7");
 
             List<int> phases = new List<int> { 5, 6, 7, 8, 9 };
 
             var allPhases = Permute(phases);
-            Dictionary<int, List<int>> outputPerPhase = new Dictionary<int, List<int>>();
+            Dictionary<long, List<int>> outputPerPhase = new Dictionary<long, List<int>>();
             foreach (IEnumerable<int> p in allPhases)
             {
                 var phase = p.ToList();
@@ -137,7 +137,7 @@ namespace AdventOfCode2019
                 ct.Join();
                 dt.Join();
                 et.Join();
-                int output = e.OutputQueue.Dequeue();
+                long output = e.OutputQueue.Dequeue();
                 outputPerPhase.Add(output, phase);
                 Console.WriteLine($"Phase {String.Join(',', phase)} produces output {output}");
             }

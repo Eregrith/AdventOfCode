@@ -10,7 +10,7 @@ namespace AdventOfCode2019.Opcodes
 
         protected override void InnerExecute(IntcodeContext context)
         {
-            int value = 0;
+            long value = 0;
             if (context.InputQueue.Count > 0 || context.Mode.HasFlag(IntcodeMode.Blocking))
             {
                 while (context.InputQueue.Count == 0);

@@ -14,11 +14,11 @@ namespace AdventOfCode2019
                 return File.ReadAllText(path);
             }
 
-            public static int[] GetIntcodeFromFile(string name)
+            public static long[] GetIntcodeFromFile(string name)
             {
                 string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @$"../../../InputFiles/{name}.txt");
                 string text = File.ReadAllText(path);
-                return text.Split(",").Select(i => int.Parse(i)).ToArray();
+                return text.Split(",").Select(i => long.Parse(i)).ToArray();
             }
         }
     }
