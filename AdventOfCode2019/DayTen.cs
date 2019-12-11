@@ -16,6 +16,7 @@ namespace AdventOfCode2019
             public int Sight { get; set; } = 0;
             public double Angle { get; set; } = 0;
             public double Distance { get; internal set; }
+            public bool Destroyed { get; set; }
 
             public Asteroid(int x, int y)
             {
@@ -74,9 +75,9 @@ namespace AdventOfCode2019
             List<string> lines = input.Split(Environment.NewLine).ToList();
             List<Asteroid> asteroids = new List<Asteroid>();
 
-            for (int x = 0; x < lines[0].Length; x++)
+            for (int y = 0; y < lines.Count; y++)
             {
-                for (int y = 0; y < lines.Count; y++)
+                for (int x = 0; x < lines[0].Length; x++)
                 {
                     if (lines[y][x] == '#')
                         asteroids.Add(new Asteroid(x, y));
@@ -87,22 +88,65 @@ namespace AdventOfCode2019
             asteroids.Remove(baseAsteroid);
             foreach (Asteroid asteroid in asteroids)
             {
-                asteroid.Angle = (Angle(asteroid, baseAsteroid) - Math.PI/2 + (Math.PI * 2)) % (Math.PI * 2);
+                asteroid.Angle = ((Angle(asteroid, baseAsteroid) * 180 / Math.PI) + 270) % 360;
                 asteroid.Distance = Distance(asteroid, baseAsteroid);
             }
-            var targetAngles = asteroids.GroupBy(a => a.Angle).ToDictionary(t => t.Key, t => t.Select(a => a).ToList());
+            Console.WriteLine($"Angles go from {asteroids.Min(a => a.Angle)} to {asteroids.Max(a => a.Angle)}");
+            IOrderedEnumerable<IGrouping<double, Asteroid>> groups = asteroids.GroupBy(a => a.Angle * 1000).OrderBy(a => a.Key);
+            var targetAngles = groups.ToDictionary(t => t.Key, t => t.Select(a => a).OrderBy(a => a.Distance).ToList());
             int d = 0;
             int g = 0;
             while (d < 200)
             {
                 Asteroid destroyed = targetAngles.ElementAt(g).Value.First();
+                destroyed.Destroyed = true;
+                Console.WriteLine($"{d+1}th destroyed from group {g} : {destroyed.X} {destroyed.Y} angle {destroyed.Angle}");
                 targetAngles.ElementAt(g).Value.Remove(destroyed);
                 if (targetAngles.ElementAt(g).Value.Count == 0)
                     targetAngles.Remove(targetAngles.ElementAt(g).Key);
+                else
+                    g = g + 1;
+                g = g % targetAngles.Count;
+                Display(asteroids, baseAsteroid);
+                Console.ReadLine();
                 d++;
-                if (d == 200)
-                    Console.WriteLine($"200th destroyed : {destroyed.X} {destroyed.Y}");
             }
+        }
+
+        private static void Display(List<Asteroid> asteroids, Asteroid baseAsteroid)
+        {
+            for (int y = 0; y < 43; y++)
+            {
+                for (int x = 0; x < 43; x++)
+                {
+                    WriteForAsteroid(asteroids, baseAsteroid, x, y);
+                }
+                Console.WriteLine();
+            }
+        }
+
+        private static void WriteForAsteroid(List<Asteroid> asteroids, Asteroid baseAsteroid, int x, int y)
+        {
+            if (baseAsteroid.X == x && baseAsteroid.Y == y)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.Write('X');
+            }
+            else
+            {
+                var ast = asteroids.FirstOrDefault(a => a.X == x && a.Y == y);
+                if (ast == null)
+                {
+                    Console.Write('.');
+                }
+                else
+                {
+                    if (ast.Destroyed)
+                        Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write('#');
+                }
+            }
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         private static double Distance(Asteroid asteroid, Asteroid baseAsteroid)
