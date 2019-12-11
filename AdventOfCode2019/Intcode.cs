@@ -63,6 +63,8 @@ namespace AdventOfCode2019
         private IntcodeContext Context { get; set; }
         public Queue<long> InputQueue { get => Context.InputQueue; set => Context.InputQueue = value; }
         public Queue<long> OutputQueue { get => Context.OutputQueue; set => Context.OutputQueue = value; }
+        public bool IsFinished => Context.IsFinished;
+
         private Dictionary<long, Opcode> Opcodes = new Dictionary<long, Opcode>
         {
             [1] = new Add(),
