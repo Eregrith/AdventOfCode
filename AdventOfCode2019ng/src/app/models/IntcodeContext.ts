@@ -1,9 +1,10 @@
 interface IntcodeContext {
-    instructionPointer: BigInteger;
+    instructionPointer: number;
     data: BigInteger[];
     inputQueue: BigInteger[];
     outputQueue: BigInteger[];
     mode: string;
     isFinished: boolean;
-    relativeBase: BigInteger
+    relativeBase: BigInteger;
+    isWaitingForInput: boolean;
 }

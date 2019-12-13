@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GrowlModule } from 'primeng/primeng';
 import { AppComponent } from './app.component';
 import { IntcodeComputerComponent } from './intcode-computer/intcode-computer.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { IntcodeComputerComponent } from './intcode-computer/intcode-computer.co
   imports: [
     BrowserModule,
     GrowlModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

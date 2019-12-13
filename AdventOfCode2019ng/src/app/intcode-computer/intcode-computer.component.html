@@ -1,14 +1,47 @@
 <div class="row">
     <div class="col-md-12">
+        <label for="file">File :</label>
+        <select name="file" [(ngModel)]="file">
+            <option [value]="file" *ngFor="let file of _files">{{file}}.txt</option>
+        </select>
         <a class="btn btn-primary" (click)="start()">Start</a>
         <a class="btn btn-primary" (click)="step()">Step</a>
+        <a class="btn btn-primary" (click)="clean()">Clean</a>
+        <input type="text" [(ngModel)]="input" />
+        <a class="btn btn-primary" (click)="sendInput()">Input</a>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-3">
+    <div class="col-md-2">
         <ul *ngIf="_context">
             <li>Instruction Pointer : {{_context.instructionPointer}}</li>
+            <li>Current opcode : {{_currentOpcode.name}}</li>
+            <li>Relative base : {{_context.relativeBase}}</li>
+            <li>
+                Parameters:
+                <div class="row">
+                    <div class="data-cell parameter" *ngFor="let param of _params"
+                         [class.immediate]="param == 1"
+                         [class.relative]="param == 2">
+                        {{param == 1 ? 'I' : ( param == 2 ? 'R' : 'P' )}}
+                    </div>
+                </div>
+            </li>
+            <li>OutputQueue :<div class="row"><div class="data-cell" *ngFor="let value of _context.outputQueue">{{value}}</div></div></li>
+            <li [class.red-border]="_context.isWaitingForInput">InputQueue :<div class="row"><div class="data-cell" *ngFor="let value of _context.inputQueue">{{value}}</div></div></li>
         </ul>
+    </div>
+    <div class="col-md-10" *ngIf="_context">
+        <div class="row" *ngFor="let line of _contextDataLines">
+            <div class="data-cell"
+                [class.active]="_context.instructionPointer==cell.index"
+                [class.parameter]="cell.index <= (_context.instructionPointer + _currentOpcode.params) && cell.index > _context.instructionPointer"
+                [class.immediate]="_params[(cell.index - _context.instructionPointer) - 1] == 1"
+                [class.relative]="_params[(cell.index - _context.instructionPointer) - 1] == 2"
+                [class.targeted]="_targets.indexOf(cell.index) >= 0"
+                [attr.data-index]="cell.index"
+                *ngFor="let cell of line">{{cell.value}}</div>
+        </div>
     </div>
 </div>
 <div class="row">

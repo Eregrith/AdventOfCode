@@ -5,3 +5,47 @@ ul {
 .monofont {
     font-family: 'Courier New', Courier, monospace;
 }
+
+.red-border {
+    border: 1px solid red;
+}
+
+.data-cell {
+    font-size: 6pt;
+    margin-right: 1px;
+    width: 24px;
+    text-align: center;
+}
+
+.data-cell.targeted {
+    border: 1px solid red;
+}
+
+.data-cell.active {
+    background-color: lightgreen;
+    font-weight: bold;
+}
+.data-cell.parameter {
+    background-color: yellow;
+    font-weight: bold;
+}
+.data-cell.immediate {
+    background-color: unset;
+    background: repeating-linear-gradient(
+        45deg,
+        lightgreen,
+        lightgreen 2px,
+        wheat 2px,
+        wheat 4px
+      );
+}
+.data-cell.relative {
+    background-color: unset;
+    background: repeating-linear-gradient(
+        45deg,
+        yellow,
+        yellow 2px,
+        #ffaa00 2px,
+        #ffaa00 4px
+      );;
+}
