@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdventOfCode2019.Intcode;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -67,23 +68,23 @@ namespace AdventOfCode2019
             foreach (IEnumerable<int> p in allPhases)
             {
                 var phase = p.ToList();
-                Intcode a = new Intcode(data);
+                IntcodeComputer a = new IntcodeComputer(data);
                 a.InputQueue.Enqueue(phase[0]);
                 a.InputQueue.Enqueue(0);
                 a.Run();
-                Intcode b = new Intcode(data);
+                IntcodeComputer b = new IntcodeComputer(data);
                 b.InputQueue.Enqueue(phase[1]);
                 b.InputQueue.Enqueue(a.OutputQueue.Dequeue());
                 b.Run();
-                Intcode c = new Intcode(data);
+                IntcodeComputer c = new IntcodeComputer(data);
                 c.InputQueue.Enqueue(phase[2]);
                 c.InputQueue.Enqueue(b.OutputQueue.Dequeue());
                 c.Run();
-                Intcode d = new Intcode(data);
+                IntcodeComputer d = new IntcodeComputer(data);
                 d.InputQueue.Enqueue(phase[3]);
                 d.InputQueue.Enqueue(c.OutputQueue.Dequeue());
                 d.Run();
-                Intcode e = new Intcode(data);
+                IntcodeComputer e = new IntcodeComputer(data);
                 e.InputQueue.Enqueue(phase[4]);
                 e.InputQueue.Enqueue(d.OutputQueue.Dequeue());
                 e.Run();
@@ -106,11 +107,11 @@ namespace AdventOfCode2019
             foreach (IEnumerable<int> p in allPhases)
             {
                 var phase = p.ToList();
-                Intcode a = new Intcode(data.ToArray(), IntcodeMode.Quiet | IntcodeMode.Blocking, "A");
-                Intcode b = new Intcode(data.ToArray(), IntcodeMode.Quiet | IntcodeMode.Blocking, "B");
-                Intcode c = new Intcode(data.ToArray(), IntcodeMode.Quiet | IntcodeMode.Blocking, "C");
-                Intcode d = new Intcode(data.ToArray(), IntcodeMode.Quiet | IntcodeMode.Blocking, "D");
-                Intcode e = new Intcode(data.ToArray(), IntcodeMode.Quiet | IntcodeMode.Blocking, "E");
+                IntcodeComputer a = new IntcodeComputer(data.ToArray(), IntcodeMode.Quiet | IntcodeMode.Blocking, "A");
+                IntcodeComputer b = new IntcodeComputer(data.ToArray(), IntcodeMode.Quiet | IntcodeMode.Blocking, "B");
+                IntcodeComputer c = new IntcodeComputer(data.ToArray(), IntcodeMode.Quiet | IntcodeMode.Blocking, "C");
+                IntcodeComputer d = new IntcodeComputer(data.ToArray(), IntcodeMode.Quiet | IntcodeMode.Blocking, "D");
+                IntcodeComputer e = new IntcodeComputer(data.ToArray(), IntcodeMode.Quiet | IntcodeMode.Blocking, "E");
                 a.InputQueue = e.OutputQueue;
                 a.InputQueue.Enqueue(phase[0]);
                 a.InputQueue.Enqueue(0);

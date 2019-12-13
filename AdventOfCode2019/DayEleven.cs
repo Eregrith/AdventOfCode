@@ -1,11 +1,10 @@
-﻿using System;
+﻿using AdventOfCode2019.Intcode;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using static AdventOfCode2019.DayTen;
-using static AdventOfCode2019.Program;
 
 namespace AdventOfCode2019
 {
@@ -29,7 +28,7 @@ namespace AdventOfCode2019
             long[] data = InputHelper.GetIntcodeFromFile("11");
             List<Panel> panelsPainted = new List<Panel>();
 
-            Intcode robot = new Intcode(data, IntcodeMode.Blocking | IntcodeMode.Quiet);
+            IntcodeComputer robot = new IntcodeComputer(data, IntcodeMode.Blocking | IntcodeMode.Quiet);
             Thread running = new Thread(() => robot.Run());
             running.Start();
             int x = 0;
@@ -96,12 +95,13 @@ namespace AdventOfCode2019
             }
             Console.WriteLine($"{panelsPainted.Count} panels were painted !");
         }
+
         public static void PartTwo()
         {
             long[] data = InputHelper.GetIntcodeFromFile("11");
             List<Panel> panelsPainted = new List<Panel>();
 
-            Intcode robot = new Intcode(data, IntcodeMode.Blocking | IntcodeMode.Quiet);
+            IntcodeComputer robot = new IntcodeComputer(data, IntcodeMode.Blocking | IntcodeMode.Quiet);
             Thread running = new Thread(() => robot.Run());
             running.Start();
             int x = 0;

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using static AdventOfCode2019.Program;
-
+﻿using AdventOfCode2019.Intcode;
 namespace AdventOfCode2019
 {
     public static class DayFive
@@ -12,7 +7,7 @@ namespace AdventOfCode2019
         {
             long[] data = InputHelper.GetIntcodeFromFile("5");
 
-            Intcode i = new Intcode(data);
+            IntcodeComputer i = new IntcodeComputer(data);
             i.Run();
         }
     }
