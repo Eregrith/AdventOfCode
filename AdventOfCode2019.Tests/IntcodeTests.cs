@@ -5,6 +5,7 @@ using System.IO;
 using Moq;
 using System.Threading;
 using AdventOfCode2019.Intcode;
+using AdventOfCode2019.Intcode.Opcodes;
 
 namespace AdventOfCode2019.Tests
 {
@@ -292,7 +293,9 @@ namespace AdventOfCode2019.Tests
 
             computerTested.Run();
 
-            mockReporter.Verify(m => m.Step(computerTested.Context), Times.Exactly(3));
+            mockReporter.Verify(m => m.Step(computerTested.Context, It.Is<Opcode>(o => o is Multiply)), Times.Once);
+            mockReporter.Verify(m => m.Step(computerTested.Context, It.Is<Opcode>(o => o is WriteOutput)), Times.Once);
+            mockReporter.Verify(m => m.Step(computerTested.Context, It.Is<Opcode>(o => o is Finish)), Times.Once);
         }
 
         [Test]
@@ -305,15 +308,18 @@ namespace AdventOfCode2019.Tests
 
             computerTested.Step();
 
-            mockReporter.Verify(m => m.Step(computerTested.Context), Times.Once);
+            mockReporter.Verify(m => m.Step(computerTested.Context, It.Is<Opcode>(o => o is Multiply)), Times.Once);
+            mockReporter.Verify(m => m.Step(computerTested.Context, It.Is<Opcode>(o => o is WriteOutput)), Times.Never);
+            mockReporter.Verify(m => m.Step(computerTested.Context, It.Is<Opcode>(o => o is Finish)), Times.Never);
 
             computerTested.Step();
 
-            mockReporter.Verify(m => m.Step(computerTested.Context), Times.Exactly(2));
+            mockReporter.Verify(m => m.Step(computerTested.Context, It.Is<Opcode>(o => o is WriteOutput)), Times.Once);
+            mockReporter.Verify(m => m.Step(computerTested.Context, It.Is<Opcode>(o => o is Finish)), Times.Never);
 
             computerTested.Step();
 
-            mockReporter.Verify(m => m.Step(computerTested.Context), Times.Exactly(3));
+            mockReporter.Verify(m => m.Step(computerTested.Context, It.Is<Opcode>(o => o is Finish)), Times.Once);
         }
 
         [Test]

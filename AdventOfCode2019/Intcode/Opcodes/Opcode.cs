@@ -8,6 +8,7 @@ namespace AdventOfCode2019.Intcode.Opcodes
     public abstract class Opcode
     {
         public abstract int Params { get; }
+        public string Name => this.GetType().Name;
         protected abstract void InnerExecute(IntcodeContext context);
 
         public void Execute(IntcodeContext context)

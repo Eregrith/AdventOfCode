@@ -13,7 +13,9 @@ namespace AdventOfCode2019.Intcode.Opcodes
             long value = 0;
             if (context.InputQueue.Count > 0 || context.Mode.HasFlag(IntcodeMode.Blocking))
             {
-                while (context.InputQueue.Count == 0);
+                context.IsWaitingForInput = true;
+                while (context.InputQueue.Count == 0) ;
+                context.IsWaitingForInput = false;
                 value = context.InputQueue.Dequeue();
             }
             else

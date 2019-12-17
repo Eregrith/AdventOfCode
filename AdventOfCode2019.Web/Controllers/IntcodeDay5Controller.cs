@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AdventOfCode2019.Intcode;
+using AdventOfCode2019.Web.Requests;
 using AdventOfCode2019.Web.SignalR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -25,13 +26,24 @@ namespace AdventOfCode2019.Web.Controllers
         }
 
         [HttpGet]
-        public void Start()
+        public List<string> GetIntcodeFiles()
         {
-            long[] data = InputHelper.GetIntcodeFromFile("5");
-            _computer = new IntcodeComputer(data);
-            _computer.InputQueue.Enqueue(1);
+            return new List<string> { "11", "2", "5", "7", "9" };
+        }
+
+        [HttpPost]
+        public void Start([FromBody]StartRequest request)
+        {
+            long[] data = InputHelper.GetIntcodeFromFile(request.File);
+            _computer = new IntcodeComputer(data, IntcodeMode.Blocking);
             _computer.Reporter = _reporter;
             _intcodeHub.Clients.All.BroadcastMessage("intcode_console", "Started !");
+        }
+
+        [HttpPost]
+        public void SendInput([FromBody]InputRequest request)
+        {   
+            _computer.InputQueue.Enqueue(request.Input);
         }
 
         [HttpGet]
@@ -40,7 +52,6 @@ namespace AdventOfCode2019.Web.Controllers
             if (_computer != null)
             {
                 _computer.Step();
-                _intcodeHub.Clients.All.BroadcastMessage("intcode_console", "Stepped !");
             }
             else
             {

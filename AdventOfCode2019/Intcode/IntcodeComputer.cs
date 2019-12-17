@@ -25,8 +25,8 @@ namespace AdventOfCode2019.Intcode
         public bool IsFinished { get; set; } = false;
         public long InstructionPointer { get; set; } = 0;
         public long CurrentOpcode => Data[InstructionPointer] % 100;
-
-        public long RelativeBase = 0;
+        public long RelativeBase { get; set; } = 0;
+        public bool IsWaitingForInput { get; set; } = false;
 
         public long Read(long offset) => ParamIsInImmediateMode(offset) ? ValueAt(offset) : (ParamIsInRelativeMode(offset) ? Data[ValueAt(offset) + RelativeBase] : Data[ValueAt(offset)]);
 
@@ -99,7 +99,7 @@ namespace AdventOfCode2019.Intcode
             while (!IsFinished)
             {
                 if (Reporter != null)
-                    Reporter.Step(Context);
+                    Reporter.Step(Context, Opcodes[Context.CurrentOpcode]);
                 Opcodes[Context.CurrentOpcode].Execute(Context);
             }
             return Context.Data[0];
@@ -110,7 +110,7 @@ namespace AdventOfCode2019.Intcode
             if (!IsFinished)
             {
                 if (Reporter != null)
-                    Reporter.Step(Context);
+                    Reporter.Step(Context, Opcodes[Context.CurrentOpcode]);
                 Opcodes[Context.CurrentOpcode].Execute(Context);
             }
         }

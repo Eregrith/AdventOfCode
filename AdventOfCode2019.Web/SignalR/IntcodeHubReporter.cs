@@ -1,4 +1,5 @@
 ﻿using AdventOfCode2019.Intcode;
+using AdventOfCode2019.Intcode.Opcodes;
 using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
@@ -16,9 +17,9 @@ namespace AdventOfCode2019.Web.SignalR
             _hubContext = hubContext;
         }
 
-        public void Step(IntcodeContext context)
+        public void Step(IntcodeContext context, Opcode currentOpcode)
         {
-            _hubContext.Clients.All.Step(context);
+            _hubContext.Clients.All.Step(context, currentOpcode);
         }
     }
 }
