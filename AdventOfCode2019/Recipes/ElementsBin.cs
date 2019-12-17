@@ -8,7 +8,7 @@ namespace AdventOfCode2019.Recipes
     {
         List<Element> _usedElements = new List<Element>();
 
-        internal void Add(int amount, string id)
+        public void Add(long amount, string id)
         {
             Element existingUsed = _usedElements.FirstOrDefault(e => e.Id == id);
             if (existingUsed == null)
@@ -20,9 +20,9 @@ namespace AdventOfCode2019.Recipes
                 existingUsed.Amount += amount;
         }
 
-        public int Count(Func<Element, bool> p) => _usedElements.FirstOrDefault(p)?.Amount??0;
+        public long Count(Func<Element, bool> p) => _usedElements.FirstOrDefault(p)?.Amount??0;
 
-        internal int RemoveUpTo(int amountRequired, string id)
+        public long RemoveUpTo(long amountRequired, string id)
         {
             Element existingUsed = _usedElements.FirstOrDefault(e => e.Id == id);
             if (existingUsed == null) return 0;
@@ -32,11 +32,21 @@ namespace AdventOfCode2019.Recipes
                 existingUsed.Amount -= amountRequired;
                 return amountRequired;
             }
-            int removed = existingUsed.Amount;
+            long removed = existingUsed.Amount;
             existingUsed.Amount = 0;
             return removed;
         }
 
-        internal bool Has(string id) => _usedElements.Any(e => e.Id == id);
+        internal bool Any()
+        {
+            return _usedElements.Any();
+        }
+
+        internal bool Has(string id) => _usedElements.Any(e => e.Id == id && e.Amount > 0);
+
+        public override string ToString()
+        {
+            return String.Join(", ", _usedElements);
+        }
     }
 }
