@@ -16,6 +16,7 @@ namespace AdventOfCode2019.Intcode
 
     public class IntcodeContext
     {
+        private const int MemorySize = 4096;
         public Queue<long> InputQueue { get; set; } = new Queue<long>();
         public Queue<long> OutputQueue { get; set; } = new Queue<long>();
         public IntcodeMode Mode { get; }
@@ -24,6 +25,7 @@ namespace AdventOfCode2019.Intcode
         public bool IsFinished { get; set; } = false;
         public long InstructionPointer { get; set; } = 0;
         public long CurrentOpcode => Data[InstructionPointer] % 100;
+
         public long RelativeBase = 0;
 
         public long Read(long offset) => ParamIsInImmediateMode(offset) ? ValueAt(offset) : (ParamIsInRelativeMode(offset) ? Data[ValueAt(offset) + RelativeBase] : Data[ValueAt(offset)]);
@@ -43,7 +45,7 @@ namespace AdventOfCode2019.Intcode
 
         public IntcodeContext(long[] data, IntcodeMode mode, string id)
         {
-            Data = new long[2048];
+            Data = new long[MemorySize];
             for (int i = 0; i < data.Length; i++)
                 Data[i] = data[i];
             Mode = mode;
@@ -94,7 +96,7 @@ namespace AdventOfCode2019.Intcode
 
         public long Run()
         {
-            while (!Context.IsFinished)
+            while (!IsFinished)
             {
                 if (Reporter != null)
                     Reporter.Step(Context);
@@ -105,11 +107,20 @@ namespace AdventOfCode2019.Intcode
 
         public void Step()
         {
-            if (!Context.IsFinished)
+            if (!IsFinished)
             {
                 if (Reporter != null)
                     Reporter.Step(Context);
                 Opcodes[Context.CurrentOpcode].Execute(Context);
+            }
+        }
+
+        public void RunUntilInput()
+        {
+            if (!IsFinished)
+            {
+                while (!(Opcodes[Context.CurrentOpcode] is WriteInput))
+                    Opcodes[Context.CurrentOpcode].Execute(Context);
             }
         }
     }

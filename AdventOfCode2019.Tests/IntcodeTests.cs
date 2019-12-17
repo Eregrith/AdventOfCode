@@ -315,5 +315,16 @@ namespace AdventOfCode2019.Tests
 
             mockReporter.Verify(m => m.Step(computerTested.Context), Times.Exactly(3));
         }
+
+        [Test]
+        public void Should_Be_Able_To_Run_Until_Next_Input()
+        {
+            long[] data = new long[] { 1, 0, 0, 0, 3, 0, 1, 0, 0, 0, 99, 0 };
+            IntcodeComputer computerTested = new IntcodeComputer(data);
+
+            computerTested.RunUntilInput();
+
+            computerTested.Context.Data[0].Should().Be(2);
+        }
     }
 }
