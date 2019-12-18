@@ -31,8 +31,12 @@ namespace AdventOfCode2019
             Console.WriteLine("Recipe for FUEL is : " + recipes.First(r => r.Product.Id == "FUEL"));
 
             RecipeRobot bot = new RecipeRobot(recipes);
-            bot.Limits.Add(1000000000000, "ORE");
 
+            bot.Make(1, "FUEL");
+            bot.AvailableElements.RemoveUpTo(1, "FUEL");
+            bot.AvailableElements.MultiplyBy(2505870);
+            bot.UsedElements.RemoveUpTo(100000000, "ORE");
+            bot.Limits.Add(190, "ORE");
             while (!bot.LimitReached)
             {
                 bot.Make(1, "FUEL");
