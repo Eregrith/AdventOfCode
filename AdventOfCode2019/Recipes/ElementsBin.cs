@@ -37,21 +37,11 @@ namespace AdventOfCode2019.Recipes
             return removed;
         }
 
-        public bool Any()
-        {
-            return _usedElements.Any();
-        }
-
         public bool Has(string id) => _usedElements.Any(e => e.Id == id && e.Amount > 0);
 
         public override string ToString()
         {
             return String.Join(", ", _usedElements);
-        }
-
-        public void MultiplyBy(int v)
-        {
-            _usedElements.ForEach(e => e.Amount *= v);
         }
     }
 }
