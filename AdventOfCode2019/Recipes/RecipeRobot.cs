@@ -11,8 +11,6 @@ namespace AdventOfCode2019.Recipes
 
         public ElementsBin UsedElements { get; } = new ElementsBin();
         public ElementsBin AvailableElements { get; } = new ElementsBin();
-        public ElementsBin Limits { get; } = new ElementsBin();
-        public bool LimitReached { get; private set; } = false;
 
         public RecipeRobot(List<Recipe> recipes)
         {
@@ -24,52 +22,36 @@ namespace AdventOfCode2019.Recipes
             Recipe directRecipe = recipes.FirstOrDefault(r => r.Product.Id == what);
             if (directRecipe == null)
             {
-                if (!Limits.Any() || UsedElements.Count(e => e.Id == what) + amount <= Limits.Count(e => e.Id == what))
-                {
-                    AvailableElements.Add(amount, what);
-                    UsedElements.Add(amount, what);
-                    return;
-                }
-                else
-                {
-                    LimitReached = true;
-                    return;
-                }
+                AvailableElements.Add(amount, what);
+                UsedElements.Add(amount, what);
+                return;
             }
             if (AvailableElements.Has(what))
             {
                 long leftoverUsed = Math.Min(AvailableElements.Count(e => e.Id == what), amount);
                 amount -= leftoverUsed;
             }
-            while (amount > 0)
+            if (amount > 0)
             {
-                RunRecipe(directRecipe);
-                if (LimitReached) return;
-                amount -= directRecipe.Product.Amount;
-                UsedElements.Add(directRecipe.Product.Amount, what);
-                AvailableElements.Add(directRecipe.Product.Amount, what);
+                long times = (long)Math.Ceiling((double)amount / (double)directRecipe.Product.Amount);
+                RunRecipe(times, directRecipe);
+                UsedElements.Add(directRecipe.Product.Amount * times, what);
+                AvailableElements.Add(directRecipe.Product.Amount * times, what);
             }
         }
 
-        private void RunRecipe(Recipe directRecipe)
+        private void RunRecipe(long times, Recipe directRecipe)
         {
             foreach (Element reagent in directRecipe.Reagents)
             {
-                Make(reagent.Amount, reagent.Id);
-                if (LimitReached)
-                    return;
-                AvailableElements.RemoveUpTo(reagent.Amount, reagent.Id);
+                Make(reagent.Amount * times, reagent.Id);
+                AvailableElements.RemoveUpTo(reagent.Amount * times, reagent.Id);
             }
         }
 
         public long GetUsed(string what)
         {
             return UsedElements.Count(e => e.Id == what);
-        }
-
-        public void AddLimit(long limit, string what)
-        {
-            Limits.Add(limit, what);
         }
     }
 }

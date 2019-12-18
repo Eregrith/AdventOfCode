@@ -1,8 +1,10 @@
 ﻿using AdventOfCode2019.Recipes;
 using FluentAssertions;
+using FluentAssertions.Extensions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 
 namespace AdventOfCode2019.Tests
@@ -108,9 +110,8 @@ namespace AdventOfCode2019.Tests
         }
 
         [Test]
-        public void Make_Should_Allow_For_Limiting_Generation_Of_Ore()
+        public void Make_Should_Handle_Great_Amounts_Quickly()
         {
-            long limit = 330;
             List<Recipe> recipes = new List<Recipe>
             {
                 new Recipe("9 ORE => 2 A"),
@@ -122,15 +123,10 @@ namespace AdventOfCode2019.Tests
                 new Recipe("2 AB, 3 BC, 4 CA => 1 FUEL")
             };
             RecipeRobot botTested = new RecipeRobot(recipes);
-            botTested.AddLimit(limit, "ORE");
+            
+            Expression<Action<RecipeRobot>> action = bot => bot.Make(10000000000, "FUEL");
 
-            while (!botTested.LimitReached)
-            {
-                botTested.Make(1, "FUEL");
-                botTested.AvailableElements.RemoveUpTo(1, "FUEL");
-            }
-            botTested.GetUsed("ORE").Should().Be(323);
-            botTested.GetUsed("FUEL").Should().Be(2);
+            botTested.ExecutionTimeOf(action).Should().BeLessOrEqualTo(500.Milliseconds());
         }
     }
 }

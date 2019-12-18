@@ -30,19 +30,29 @@ namespace AdventOfCode2019
             Console.WriteLine("Recipes stored.");
             Console.WriteLine("Recipe for FUEL is : " + recipes.First(r => r.Product.Id == "FUEL"));
 
-            RecipeRobot bot = new RecipeRobot(recipes);
-
-            bot.Make(1, "FUEL");
-            bot.AvailableElements.RemoveUpTo(1, "FUEL");
-            bot.AvailableElements.MultiplyBy(2505870);
-            bot.UsedElements.RemoveUpTo(100000000, "ORE");
-            bot.Limits.Add(190, "ORE");
-            while (!bot.LimitReached)
+            long increment = 1000000;
+            long total = increment;
+            long previousUsed = 0;
+            long used = 0;
+            while (increment > 0)
             {
-                bot.Make(1, "FUEL");
-                bot.AvailableElements.RemoveUpTo(1, "FUEL");
+                RecipeRobot bot = new RecipeRobot(recipes);
+                bot.Make(total, "FUEL");
+                used = bot.GetUsed("ORE");
+                if (used > 1000000000000)
+                {
+                    total -= increment;
+                    increment /= 10;
+                    used = previousUsed;
+                }
+                else
+                {
+                    total += increment;
+                }
+                previousUsed = used;
             }
-            Console.WriteLine("Produced " + bot.GetUsed("FUEL") + " FUEL using " + bot.GetUsed("ORE") + " ORE");
+
+            Console.WriteLine("Produced " + total + " FUEL using " + used + " ORE");
         }
     }
 
