@@ -21,6 +21,11 @@ namespace AdventOfCode2019
             return text.Split(",").Select(i => long.Parse(i)).ToArray();
         }
 
+        public static string GetOutputPathForFile(string name)
+        {
+            return Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @$"../../../OutputFiles/{name}.txt");
+        }
+
         /// <summary>
         /// Returns a list of all sublists of given <paramref name="size"/>
         /// The last sublist contains as many elements as possible

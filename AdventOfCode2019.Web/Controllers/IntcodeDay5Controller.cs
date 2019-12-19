@@ -28,7 +28,7 @@ namespace AdventOfCode2019.Web.Controllers
         [HttpGet]
         public List<string> GetIntcodeFiles()
         {
-            return new List<string> { "11", "2", "5", "7", "9" };
+            return new List<string> { "11", "2", "5", "7", "9", "17" };
         }
 
         [HttpPost]
@@ -36,6 +36,25 @@ namespace AdventOfCode2019.Web.Controllers
         {
             long[] data = InputHelper.GetIntcodeFromFile(request.File);
             _computer = new IntcodeComputer(data, IntcodeMode.Blocking);
+            if (request.File == "17")
+            {
+                List<string> commands = new List<string>
+                {
+                    "A,B,B,A,C,B,C,C,B,A",
+                    "R,10,R,8,L,10,L,10",
+                    "R,8,L,6,L,6",
+                    "L,10,R,10,L,6",
+                    "y"
+                };
+                foreach (string command in commands)
+                {
+                    foreach (char c in command.ToCharArray())
+                    {
+                        _computer.InputQueue.Enqueue((long)c);
+                    }
+                    _computer.InputQueue.Enqueue(10);
+                }
+            }
             _computer.Reporter = _reporter;
             _intcodeHub.Clients.All.BroadcastMessage("intcode_console", "Started !");
         }
