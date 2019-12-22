@@ -6,6 +6,8 @@ namespace AdventOfCode2019.Mazes
 {
     public class MazeWall : MazeCell
     {
+        public override char Display => '#';
+
         public MazeWall(int x, int y)
             : base(x, y)
         {}

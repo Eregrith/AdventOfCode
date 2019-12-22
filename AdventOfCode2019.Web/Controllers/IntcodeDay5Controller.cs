@@ -28,7 +28,7 @@ namespace AdventOfCode2019.Web.Controllers
         [HttpGet]
         public List<string> GetIntcodeFiles()
         {
-            return new List<string> { "11", "2", "5", "7", "9", "17" };
+            return new List<string> { "11", "2", "5", "7", "9", "17", "21" };
         }
 
         [HttpPost]
@@ -55,13 +55,33 @@ namespace AdventOfCode2019.Web.Controllers
                     _computer.InputQueue.Enqueue(10);
                 }
             }
+            if (request.File == "21")
+            {
+                List<string> commands = new List<string>
+                {
+                    "OR A T\n",
+                    "AND B T\n",
+                    "AND C T\n",
+                    "NOT T T\n",
+                    "AND D T\n",
+                    "OR T J\n",
+                    "WALK\n",
+                };
+                foreach (string command in commands)
+                {
+                    foreach (char c in command.ToCharArray())
+                    {
+                        _computer.InputQueue.Enqueue(c);
+                    }
+                }
+            }
             _computer.Reporter = _reporter;
             _intcodeHub.Clients.All.BroadcastMessage("intcode_console", "Started !");
         }
 
         [HttpPost]
         public void SendInput([FromBody]InputRequest request)
-        {   
+        {
             _computer.InputQueue.Enqueue(request.Input);
         }
 
@@ -75,6 +95,19 @@ namespace AdventOfCode2019.Web.Controllers
             else
             {
                 _intcodeHub.Clients.All.BroadcastMessage("intcode_console", "Can't step : _computer is null");
+            }
+        }
+
+        [HttpGet]
+        public void Run()
+        {
+            if (_computer != null)
+            {
+                _computer.Run();
+            }
+            else
+            {
+                _intcodeHub.Clients.All.BroadcastMessage("intcode_console", "Can't run : _computer is null");
             }
         }
     }

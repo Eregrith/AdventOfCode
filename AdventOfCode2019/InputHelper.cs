@@ -50,5 +50,10 @@ namespace AdventOfCode2019
             }
             return sublists;
         }
+
+        public static char[][] ToDoubleCharArray(this string lines)
+        {
+            return lines.Split(Environment.NewLine).Select(c => c.ToCharArray()).ToArray();
+        }
     }
 }

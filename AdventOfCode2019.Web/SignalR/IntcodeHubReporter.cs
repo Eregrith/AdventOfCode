@@ -11,6 +11,7 @@ namespace AdventOfCode2019.Web.SignalR
     public class IntcodeHubReporter : IIntcodeReporter
     {
         private readonly IHubContext<IntcodeHub, IIntcodeClient> _hubContext;
+        private long lastOutputQueueIndexNotified = -1;
 
         public IntcodeHubReporter(IHubContext<IntcodeHub, IIntcodeClient> hubContext)
         {
@@ -19,7 +20,12 @@ namespace AdventOfCode2019.Web.SignalR
 
         public void Step(IntcodeContext context, Opcode currentOpcode)
         {
-            _hubContext.Clients.All.Step(context, currentOpcode);
+            if (context.OutputQueue.Count - 1 > lastOutputQueueIndexNotified)
+            {
+                _hubContext.Clients.All.Step(context, currentOpcode);
+                lastOutputQueueIndexNotified = context.OutputQueue.Count - 1;
+                _hubContext.Clients.All.Output((char)(context.OutputQueue.ToArray()[lastOutputQueueIndexNotified]));
+            }
         }
     }
 }

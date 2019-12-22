@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { HttpClient } from '@angular/common/http';
+import { toASCII } from 'punycode';
 
 @Component({
   selector: 'app-intcode-computer',
@@ -11,7 +12,6 @@ export class IntcodeComputerComponent implements OnInit {
 
   private _hubConnection: HubConnection;
   _console: string[] = [];
-  _result: string;
   _context: IntcodeContext;
   _contextDataLines: BigInteger[][];
   _currentOpcode: Opcode;
@@ -20,6 +20,7 @@ export class IntcodeComputerComponent implements OnInit {
   _files: string[];
   file: string;
   input: string;
+  _outputs: string = '';
 
   constructor(private http: HttpClient) { }
 
@@ -30,8 +31,6 @@ export class IntcodeComputerComponent implements OnInit {
     this._hubConnection.on('BroadcastMessage', (type: string, payload: string) => {
       if (type === "intcode_console")
         this._console.push(payload);
-      else if (type === "intcode_result")
-        this._result = payload.split("\r\n").join("<br/>");
     });
     this._hubConnection.on('Step', (context: IntcodeContext, currentOpcode: Opcode) => {
       this._context = context;
@@ -40,6 +39,10 @@ export class IntcodeComputerComponent implements OnInit {
       console.log("CurrentOpcode:", currentOpcode);
       this.refreshContextDataLines();
     });
+    this._hubConnection.on('Output', (value: any) => {
+      this._outputs += '' + value;
+    });
+
 
     this._hubConnection.onclose(() => { 
       setTimeout(this.reconnect,3000); 
@@ -83,7 +86,6 @@ export class IntcodeComputerComponent implements OnInit {
 
   clean() {
     this._console = [];
-    this._result = undefined;
   }
 
   getAvailableFiles() {

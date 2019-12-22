@@ -6,6 +6,7 @@ namespace AdventOfCode2019.Mazes
 {
     public class MazeExit : MazeCell
     {
+        public override char Display => '*';
         public MazeExit(int x, int y)
             : base(x, y)
         {

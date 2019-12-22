@@ -11,5 +11,6 @@ namespace AdventOfCode2019.Web.SignalR
     {
         Task Step(IntcodeContext context, Opcode currentOpcode);
         Task BroadcastMessage(string type, string payload);
+        Task Output(char value);
     }
 }

@@ -1,7 +1,9 @@
 ﻿namespace AdventOfCode2019.Mazes
 {
-    internal class MazeEntrance : MazeCell
+    public class MazeEntrance : MazeCell
     {
+        public override char Display => '@';
+
         public MazeEntrance(int x, int y)
             : base(x, y)
         {

@@ -20,16 +20,16 @@ namespace AdventOfCode2019.Recipes
         public void Make(long amount, string what)
         {
             Recipe directRecipe = recipes.FirstOrDefault(r => r.Product.Id == what);
+            if (AvailableElements.Has(what))
+            {
+                long leftoverUsed = Math.Min(AvailableElements.Count(e => e.Id == what), amount);
+                amount -= leftoverUsed;
+            }
             if (directRecipe == null)
             {
                 AvailableElements.Add(amount, what);
                 UsedElements.Add(amount, what);
                 return;
-            }
-            if (AvailableElements.Has(what))
-            {
-                long leftoverUsed = Math.Min(AvailableElements.Count(e => e.Id == what), amount);
-                amount -= leftoverUsed;
             }
             if (amount > 0)
             {

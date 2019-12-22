@@ -1,5 +1,6 @@
 ﻿using AdventOfCode2019.Intcode;
 using AdventOfCode2019.Mazes;
+using AdventOfCode2019.Mazes.Factories;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,7 +26,7 @@ namespace AdventOfCode2019
         {
             string input = InputHelper.GetInputFromFile("15_maze");
 
-            Maze maze = new Maze(input.Split(Environment.NewLine).Select(l => l.ToArray()).ToArray());
+            Maze maze = new Maze(input.Split(Environment.NewLine).Select(l => l.ToArray()).ToArray(), new DayFifteenMazeFactory());
 
             int minutes = 0;
             while (maze.Cells.Any(c => c is MazeCorridor))
@@ -44,18 +45,7 @@ namespace AdventOfCode2019
                 for (int x = maze.MinX; x <= maze.MaxX; x++)
                 {
                     MazeCell cell = maze.CellAt(x, y);
-                    if (cell == null)
-                        sb.Append('#');
-                    else if (cell is MazeWall)
-                        sb.Append('#');
-                    else if (cell is MazeExit)
-                        sb.Append('*');
-                    else if (cell is MazeOxygen o)
-                        sb.Append(o.IsActive ? 'O' : 'o');
-                    else if (cell is MazeEntrance)
-                        sb.Append('v');
-                    else
-                        sb.Append(' ');
+                    sb.Append(cell == null ? '?' : cell.Display);
                 }
                 sb.AppendLine();
             }
