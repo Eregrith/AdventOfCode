@@ -1,5 +1,4 @@
-﻿using AdventOfCode2019.Streams;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,48 +46,6 @@ namespace AdventOfCode2019
         public static void PartTwo()
         {
             string input = InputHelper.GetInputFromFile("16");
-            Stream<int> phase = Stream.Cycle(input.ToCharArray().Select(c => c - '0').ToList());
-            int size = input.Length * 10000;
-            int offset = int.Parse(String.Join("", phase.Take(7)));
-
-            for (int p = 0; p < 100; p++)
-            {
-                phase = NextPhase(phase, size);
-            }
-            Console.WriteLine("Final phase is " + String.Join(' ', phase.Drop(offset).Take(8)));
-        }
-
-        private static Stream<int> NextPhase(Stream<int> phase, int size)
-        {
-            int i = 1;
-            return phase.FMap(e => SumPhase(phase, i++, size));
-        }
-
-        private static int SumPhase(Stream<int> phase, int stretch, int size)
-        {
-            Stream<int> p = phase.FMap(i => i);
-            p = p.Drop(1);
-            int s = 0;
-            int sum = 0;
-            while (s < size)
-            {
-                int drop = Math.Min(size - s, stretch);
-                p = p.Drop(drop);
-                s += drop;
-                int take = Math.Min(size - s, stretch);
-                if (take > 0)
-                    sum += p.Take(take).Sum();
-                drop = Math.Min(size - s, stretch * 2);
-                if (drop > 0)
-                {
-                    p = p.Drop(drop);
-                    s += drop;
-                }
-                take = Math.Min(size - s, stretch);
-                if (take > 0)
-                    sum -= p.Take(take).Sum();
-            }
-            return Math.Abs(sum % 10);
         }
     }
 }

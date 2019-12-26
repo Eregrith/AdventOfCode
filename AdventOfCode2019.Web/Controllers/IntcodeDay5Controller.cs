@@ -59,13 +59,15 @@ namespace AdventOfCode2019.Web.Controllers
             {
                 List<string> commands = new List<string>
                 {
+                    "OR H J\n",
+                    "OR E J\n",
                     "OR A T\n",
                     "AND B T\n",
                     "AND C T\n",
                     "NOT T T\n",
                     "AND D T\n",
-                    "OR T J\n",
-                    "WALK\n",
+                    "AND T J\n",
+                    "RUN\n"
                 };
                 foreach (string command in commands)
                 {

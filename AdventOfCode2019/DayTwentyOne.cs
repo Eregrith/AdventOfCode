@@ -39,5 +39,38 @@ namespace AdventOfCode2019
             else
                 Console.WriteLine("Result : " + com.OutputQueue.Dequeue());
         }
+
+        public static void PartTwo()
+        {
+            long[] data = InputHelper.GetIntcodeFromFile("21");
+            IntcodeComputer com = new IntcodeComputer(data, IntcodeMode.Blocking | IntcodeMode.Quiet);
+            List<string> commands = new List<string>();
+
+            Console.WriteLine("Data ?");
+            string line = "";
+            while (line != "RUN")
+            {
+                line = Console.ReadLine();
+                commands.Add(line + '\n');
+            }
+            foreach (string command in commands)
+            {
+                foreach (char c in command)
+                    com.InputQueue.Enqueue(c);
+            }
+            com.Run();
+            if (com.OutputQueue.Count > 1)
+            {
+                StringBuilder sb = new StringBuilder();
+                while (com.OutputQueue.Count > 0)
+                {
+                    long output = com.OutputQueue.Dequeue();
+                    sb.Append((char)output);
+                }
+                Console.WriteLine(sb.ToString());
+            }
+            else
+                Console.WriteLine("Result : " + com.OutputQueue.Dequeue());
+        }
     }
 }

@@ -6,6 +6,7 @@ using Moq;
 using System.Threading;
 using AdventOfCode2019.Intcode;
 using AdventOfCode2019.Intcode.Opcodes;
+using System.Collections.Generic;
 
 namespace AdventOfCode2019.Tests
 {
@@ -110,9 +111,9 @@ namespace AdventOfCode2019.Tests
 
             long result = computerTested.Run();
 
-            mockTextWriter.Verify(m => m.WriteLine("0: Multiply [@1 8p (=33), @2 3i (=3), @3 8p (=33)]"));
-            mockTextWriter.Verify(m => m.WriteLine("4: Add [@5 8p (=99), @6 0i (=0), @7 0p (=1002)]"));
-            mockTextWriter.Verify(m => m.WriteLine("8: Finish"));
+            mockTextWriter.Verify(m => m.WriteLine("0000: Multiply [@1 8p (=33), @2 3i (=3), @3 8p (=33)]"));
+            mockTextWriter.Verify(m => m.WriteLine("0004: Add [@5 8p (=99), @6 0i (=0), @7 0p (=1002)]"));
+            mockTextWriter.Verify(m => m.WriteLine("0008: Finish"));
         }
 
         [Test]
@@ -331,6 +332,72 @@ namespace AdventOfCode2019.Tests
             computerTested.RunUntilInput();
 
             computerTested.Context.Data[0].Should().Be(2);
+        }
+
+        [Test]
+        public void TraceMode_Should_Generate_Labelized_Events_Really_Hapenning()
+        {
+            long[] data = new long[]
+            {
+                -5,
+                1001, 0, 1, 0,
+                1005, 0, 1,
+                99,
+            };
+            IntcodeComputer computerTested = new IntcodeComputer(data, IntcodeMode.Trace);
+            string[] expected = new[]
+           {
+                "0000 pos_0: data -5",
+                "",
+                "0001 pos_1: pos_0 = pos_0 + 1",
+                "0005        if (pos_0 != 0) goto pos_1",
+                "0001        pos_0 = pos_0 + 1",
+                "0005        if (pos_0 != 0) goto pos_1",
+                "0001        pos_0 = pos_0 + 1",
+                "0005        if (pos_0 != 0) goto pos_1",
+                "0001        pos_0 = pos_0 + 1",
+                "0005        if (pos_0 != 0) goto pos_1",
+                "0001        pos_0 = pos_0 + 1",
+                "0005        if (pos_0 != 0) goto pos_1",
+                "0008        stop"
+            };
+            computerTested.Run();
+
+            List<string> trace = computerTested.GetTrace();
+            trace.Should().BeEquivalentTo(expected);
+        }
+
+        [Test]
+        public void TraceMode_Should_Reach_Data_Beyond_Run_Opcodes_When_Needed()
+        {
+            long[] data = new long[]
+            {
+                1001, 8, 1, 8,
+                1005, 8, 0,
+                99,
+                -5,
+            };
+            IntcodeComputer computerTested = new IntcodeComputer(data, IntcodeMode.Trace);
+            string[] expected = new[]
+           {
+                "0000 pos_0: pos_1 = pos_1 + 1",
+                "0004        if (pos_1 != 0) goto pos_0",
+                "0000        pos_1 = pos_1 + 1",
+                "0004        if (pos_1 != 0) goto pos_0",
+                "0000        pos_1 = pos_1 + 1",
+                "0004        if (pos_1 != 0) goto pos_0",
+                "0000        pos_1 = pos_1 + 1",
+                "0004        if (pos_1 != 0) goto pos_0",
+                "0000        pos_1 = pos_1 + 1",
+                "0004        if (pos_1 != 0) goto pos_0",
+                "0007        stop",
+                "",
+                "0008 pos_1: data 0",
+            };
+            computerTested.Run();
+
+            List<string> trace = computerTested.GetTrace();
+            trace.Should().BeEquivalentTo(expected);
         }
     }
 }

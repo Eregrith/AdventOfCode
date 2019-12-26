@@ -1,7 +1,9 @@
-﻿using AdventOfCode2019.Intcode.Opcodes;
+﻿using AdventOfCode2019.Intcode.Events;
+using AdventOfCode2019.Intcode.Opcodes;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 
 namespace AdventOfCode2019.Intcode
 {
@@ -11,7 +13,8 @@ namespace AdventOfCode2019.Intcode
         None = 0,
         Quiet = 1,
         Verbose = 2,
-        Blocking = 4
+        Blocking = 4,
+        Trace = 8
     };
 
     public class IntcodeContext
@@ -19,6 +22,7 @@ namespace AdventOfCode2019.Intcode
         private const int MemorySize = 4096;
         public Queue<long> InputQueue { get; set; } = new Queue<long>();
         public Queue<long> OutputQueue { get; set; } = new Queue<long>();
+        public List<IntcodeEvent> Events { get; set; } = new List<IntcodeEvent>();
         public IntcodeMode Mode { get; }
         public long[] Data { get; }
         public string Id { get; }
@@ -100,7 +104,14 @@ namespace AdventOfCode2019.Intcode
             {
                 if (Reporter != null)
                     Reporter.Step(Context, Opcodes[Context.CurrentOpcode]);
-                Opcodes[Context.CurrentOpcode].Execute(Context);
+                if (!Opcodes.ContainsKey(Context.CurrentOpcode))
+                {
+                    if (Context.Mode == IntcodeMode.Trace)
+                        Context.Events.Add(new DataEvent(Context.InstructionPointer, Context.Data[Context.InstructionPointer]));
+                    Context.InstructionPointer++;
+                }
+                else
+                    Opcodes[Context.CurrentOpcode].Execute(Context);
             }
             return Context.Data[0];
         }
@@ -122,6 +133,16 @@ namespace AdventOfCode2019.Intcode
                 while (!(Opcodes[Context.CurrentOpcode] is WriteInput))
                     Opcodes[Context.CurrentOpcode].Execute(Context);
             }
+        }
+        public List<string> GetTrace()
+        {
+            List<long> targetedPositions = Context.Events.SelectMany(e => e.Params).Where(e => e.Mode != ParamMode.Immediate).Select(e => e.Value).ToList();
+            foreach (long missingTarget in targetedPositions.OrderBy(p => p).Where(p => !Context.Events.Any(e => e.Address == p)))
+            {
+                Context.Events.Add(new DataEvent(missingTarget, Context.Data[missingTarget]));
+            }
+            IntcodeDecompiler.LabelizeEvents(Context.Events);
+            return IntcodeDecompiler.Textualize(Context.Events);
         }
     }
 }

@@ -40,9 +40,8 @@ export class IntcodeComputerComponent implements OnInit {
       this.refreshContextDataLines();
     });
     this._hubConnection.on('Output', (value: any) => {
-      this._outputs += '' + value;
+      this._outputs += value;
     });
-
 
     this._hubConnection.onclose(() => { 
       setTimeout(this.reconnect,3000); 
