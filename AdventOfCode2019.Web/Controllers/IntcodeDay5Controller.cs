@@ -63,7 +63,7 @@ namespace AdventOfCode2019.Web.Controllers
                     "OR E J\n",
                     "OR A T\n",
                     "AND B T\n",
-                    "AND C T\n",
+                    "AND C T\n",    
                     "NOT T T\n",
                     "AND D T\n",
                     "AND T J\n",

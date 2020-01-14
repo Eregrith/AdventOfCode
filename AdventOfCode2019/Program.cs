@@ -9,7 +9,7 @@ namespace AdventOfCode2019
     {
         static void Main()
         {
-            DayTwentyOne.PartTwo();
+            DaySixteen.PartTwo();
         }
 
         private static void DecompileAndLabelizeIntcodes()
