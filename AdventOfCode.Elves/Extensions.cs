@@ -12,5 +12,10 @@ namespace AdventOfCode.Elves
             else if (val.CompareTo(max) > 0) return max;
             else return val;
         }
+
+        public static bool IsBetween(this int x, int min, int max)
+        {
+            return x <= max && x >= min;
+        }
     }
 }
