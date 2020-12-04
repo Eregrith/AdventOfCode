@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace AdventOfCode.Elves
@@ -16,6 +17,13 @@ namespace AdventOfCode.Elves
         public static bool IsBetween(this int x, int min, int max)
         {
             return x <= max && x >= min;
+        }
+
+        public static bool IsHexadecimalColor(this string value)
+        {
+            return value.StartsWith("#")
+                && value.Length == 7
+                && value.Substring(1).All(c => "0123456789abcdef".Contains(c));
         }
     }
 }

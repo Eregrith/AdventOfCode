@@ -24,12 +24,7 @@ namespace AdventOfCode2020.Days
             ( "pid", s => s != null && s.Length == 9 && s.All(c => "0123456789".Contains(c))),
         };
 
-        private static bool IsValidHairColor(string hcl)
-        {
-            if (!hcl.StartsWith("#"))
-                return false;
-            return hcl.Length == 7 && hcl.Substring(1).All(c => "0123456789abcdef".Contains(c));
-        }
+        private static bool IsValidHairColor(string hcl) => hcl.IsHexadecimalColor();
 
         private static bool IsValidHeight(string hgt)
         {
