@@ -13,7 +13,7 @@ namespace AdventOfCode.Elves.IOHelpers
             if (!File.Exists("Inputs/" + fileName))
             {
                 Console.WriteLine($"File not found: {fileName}. Don't forget to set Copy if newer");
-                return null;
+                return new List<string>();
             }
             return File.ReadAllLines("Inputs/" + fileName).ToList();
         }

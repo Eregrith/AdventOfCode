@@ -20,7 +20,7 @@ namespace AdventOfCode2020.Days
 
             int ouchies = Weeeeeeeeeeeee(trees, 3, 1);
 
-            string displayRectangle = MatrixHelper<char>.GetDisplayRectangle(trees, new Rectangle(-5, -5, 20, 20), MatrixWrap.WrapHorizontally | MatrixWrap.WrapVertically);
+            string displayRectangle = MatrixHelper<char>.GetDisplayRectangle(trees, new Rectangle(0, 0, 20, 20), MatrixWrap.WrapHorizontally | MatrixWrap.WrapVertically);
             Console.WriteLine(displayRectangle);
 
             Console.WriteLine($"You have {ouchies} ouchies. Oof!");
@@ -58,6 +58,7 @@ namespace AdventOfCode2020.Days
                 else
                     trees[y][x] = 'O';
             }
+            Console.WriteLine(bong);
             return bong;
         }
     }

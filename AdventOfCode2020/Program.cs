@@ -7,8 +7,8 @@ namespace AdventOfCode2020
     {
         static void Main()
         {
-            DayNine.PartOne();
-            DayNine.PartTwo();
+            DayTen.PartOne();
+            DayTen.PartTwo();
         }
     }
 }
