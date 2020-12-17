@@ -42,13 +42,13 @@ namespace AdventOfCode2020.Days
         private int CountAdjacentOccupiedSeats(int x, int y, char[][] seats)
         {
             int occupied = 0;
-            occupied += SeatAtXYIsOccupied(x, y, seats);
-            occupied += SeatAtXYIsOccupied(x, y, seats);
-            occupied += SeatAtXYIsOccupied(x, y, seats);
-            occupied += SeatAtXYIsOccupied(x, y, seats);
-            occupied += SeatAtXYIsOccupied(x, y, seats);
-            occupied += SeatAtXYIsOccupied(x, y, seats);
-            occupied += SeatAtXYIsOccupied(x, y, seats);
+            occupied += SeatAtXYIsOccupied(x + 1, y + 1, seats);
+            occupied += SeatAtXYIsOccupied(x + 1, y, seats);
+            occupied += SeatAtXYIsOccupied(x + 1, y - 1, seats);
+            occupied += SeatAtXYIsOccupied(x, y - 1, seats);
+            occupied += SeatAtXYIsOccupied(x - 1, y - 1, seats);
+            occupied += SeatAtXYIsOccupied(x - 1, y, seats);
+            occupied += SeatAtXYIsOccupied(x - 1, y + 1, seats);
             return occupied;
         }
 
@@ -60,7 +60,12 @@ namespace AdventOfCode2020.Days
             {
                 for (int x = 0; x < seats[y].Length; x++)
                 {
-
+                     if (seats[y][x] == '.')
+                          newSeats[y][x] = '.'
+                     else if (SeatAtXYIsOccupied(x, y, seats) == 0)
+                          newSeats[y][x] = CountAdjacentOccupiedSeats(x, y, seats) == 0 ? '#' : seats[y][x];
+                     else
+                          newSeats[y][x] = CountAdjacentOccupiedSeats(x, y, seats) >= 4 ? 'L' : seats[y][x];
                 }
             }
         }
