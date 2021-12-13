@@ -131,7 +131,7 @@ namespace AdventOfCode2020.Days
             return (newSeats, changes);
         }
 
-        private static (char[][], int) OneRoundForParTwo(char[][] seats)
+        private static (char[][], int) OneRoundForPartTwo(char[][] seats)
         {
             char[][] newSeats = new char[seats.Length][];
             int changes = 0;
