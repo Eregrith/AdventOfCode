@@ -14,7 +14,7 @@ namespace AdventOfCode2021.Days
             Console.WriteLine($"Input has {lines.Count} lines");
             SyntaxChecker syntaxChecker = new SyntaxChecker(lines);
 
-            int score = syntaxChecker.GetScore();
+            int score = syntaxChecker.GetSyntaxCheckerScore();
             
             Console.WriteLine($"The score of the syntax check is {score}");
 
@@ -26,8 +26,11 @@ namespace AdventOfCode2021.Days
             Console.WriteLine("DayTen - Part Two");
             List<string> lines = PuzzleInputHelper.GetInputLines("DayTen.txt");
             Console.WriteLine($"Input has {lines.Count} lines");
+            SyntaxChecker syntaxChecker = new SyntaxChecker(lines);
 
+            int score = syntaxChecker.GetAutocompletionScore();
 
+            Console.WriteLine($"The score of the autocompletion is {score}");
 
             Console.WriteLine("DayTen - End of part Two");
         }

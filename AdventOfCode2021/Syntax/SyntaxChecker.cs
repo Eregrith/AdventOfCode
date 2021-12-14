@@ -22,7 +22,7 @@ namespace AdventOfCode2021.Syntax
             _lines = lines;
         }
 
-        internal int GetScore()
+        internal int GetSyntaxCheckerScore()
         {
             return _lines.Sum(l => GetLineScore(l));
         }
@@ -68,6 +68,20 @@ namespace AdventOfCode2021.Syntax
                 }
             }
             return (char)0;
+        }
+
+        internal int GetAutocompletionScore()
+        {
+            var scores = _lines.Select(l => GetLineAutocompletionScore(l))
+                               .OrderByDescending(s => s)
+                               .ToList();
+
+            return scores.ElementAt((scores.Count / 2));
+        }
+
+        private int GetLineAutocompletionScore(string l)
+        {
+            return 0;
         }
     }
 }
