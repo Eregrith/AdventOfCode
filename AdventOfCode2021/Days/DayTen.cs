@@ -2,6 +2,7 @@
 using AdventOfCode2021.Syntax;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace AdventOfCode2021.Days
 {
@@ -21,6 +22,7 @@ namespace AdventOfCode2021.Days
             Console.WriteLine("DayTen - End of part One");
         }
 
+        //454057517 too low
         public static void PartTwo()
         {
             Console.WriteLine("DayTen - Part Two");
@@ -28,7 +30,7 @@ namespace AdventOfCode2021.Days
             Console.WriteLine($"Input has {lines.Count} lines");
             SyntaxChecker syntaxChecker = new SyntaxChecker(lines);
 
-            int score = syntaxChecker.GetAutocompletionScore();
+            BigInteger score = syntaxChecker.GetAutocompletionScore();
 
             Console.WriteLine($"The score of the autocompletion is {score}");
 
