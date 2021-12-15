@@ -7,8 +7,8 @@ namespace AdventOfCode2021
     {
         static void Main(string[] args)
         {
-            DayEleven.PartOne();
-            DayEleven.PartTwo();
+            DayTwelve.PartOne();
+            DayTwelve.PartTwo();
         }
     }
 }

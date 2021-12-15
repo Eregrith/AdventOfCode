@@ -25,5 +25,10 @@ namespace AdventOfCode.Elves
                 && value.Length == 7
                 && value.Substring(1).All(c => "0123456789abcdef".Contains(c));
         }
+        
+        public static bool IsCaps(this string value)
+        {
+            return value.All(v => v <= 'Z' && v >= 'A');
+        }
     }
 }
