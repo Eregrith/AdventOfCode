@@ -48,7 +48,7 @@ namespace AdventOfCode2019.Web.Controllers
                 };
                 foreach (string command in commands)
                 {
-                    foreach (char c in command.ToCharArray())
+                    foreach (char c in command)
                     {
                         _computer.InputQueue.Enqueue((long)c);
                     }
@@ -71,7 +71,7 @@ namespace AdventOfCode2019.Web.Controllers
                 };
                 foreach (string command in commands)
                 {
-                    foreach (char c in command.ToCharArray())
+                    foreach (char c in command)
                     {
                         _computer.InputQueue.Enqueue(c);
                     }

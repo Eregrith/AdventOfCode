@@ -40,7 +40,7 @@ namespace AdventOfCode2019
 
             foreach (string command in commands)
             {
-                foreach (char c in command.ToCharArray())
+                foreach (char c in command)
                 {
                     com.InputQueue.Enqueue((long)c);
                 }
