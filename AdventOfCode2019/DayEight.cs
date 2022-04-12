@@ -73,22 +73,24 @@ namespace AdventOfCode2019
                 i += (width * height);
             }
 
-            Bitmap bmp = new Bitmap(width, height);
-            for (int x = 0; x < width; x++)
+            using (Bitmap bmp = new Bitmap(width, height))
             {
-                for (int y = 0; y < height; y++)
+                for (int x = 0; x < width; x++)
                 {
-                    foreach (Layer l in layers)
+                    for (int y = 0; y < height; y++)
                     {
-                        bmp.SetPixel(x, y, Color.Transparent);
-                        if (l.Pixels[x, y] == 2) continue;
-                        Color color = l.Pixels[x, y] == 0 ? Color.Black : Color.White;
-                        bmp.SetPixel(x, y, color);
-                        break;
+                        foreach (Layer l in layers)
+                        {
+                            bmp.SetPixel(x, y, Color.Transparent);
+                            if (l.Pixels[x, y] == 2) continue;
+                            Color color = l.Pixels[x, y] == 0 ? Color.Black : Color.White;
+                            bmp.SetPixel(x, y, color);
+                            break;
+                        }
                     }
                 }
+                bmp.Save(@"C:\Temp\DayEight.bmp");
             }
-            bmp.Save(@"C:\Temp\DayEight.bmp");
         }
     }
 }
