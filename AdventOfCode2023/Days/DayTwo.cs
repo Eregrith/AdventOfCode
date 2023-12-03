@@ -36,6 +36,5 @@ namespace AdventOfCode2023.Days
             Console.WriteLine($"Sum is : {sum}");
             Console.WriteLine("Day two - End of part Two");
         }
-
     }
 }
