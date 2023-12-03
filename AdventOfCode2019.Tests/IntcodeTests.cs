@@ -1,12 +1,12 @@
-﻿using NUnit.Framework;
-using FluentAssertions;
-using System;
-using System.IO;
-using Moq;
-using System.Threading;
-using AdventOfCode2019.Intcode;
+﻿using AdventOfCode2019.Intcode;
 using AdventOfCode2019.Intcode.Opcodes;
+using FluentAssertions;
+using Moq;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 
 namespace AdventOfCode2019.Tests
 {
@@ -68,6 +68,7 @@ namespace AdventOfCode2019.Tests
 
             new Thread(() => computerTested.Run()).Start();
 
+            Thread.Sleep(10);
             computerTested.InputQueue.Enqueue(input);
             mockTextWriter.Verify(m => m.Write("Input: "), Times.Never);
             mockTextWriter.Verify(m => m.WriteLine("Output: " + input), Times.Once);
