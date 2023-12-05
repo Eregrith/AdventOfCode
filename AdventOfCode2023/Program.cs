@@ -4,5 +4,5 @@ using AdventOfCode2023.Days;
 
 Console.WriteLine("AdventOfCode2023!");
 
-DayFour.PartOne();
-DayFour.PartTwo();
+DayFive.PartOne();
+DayFive.PartTwo();

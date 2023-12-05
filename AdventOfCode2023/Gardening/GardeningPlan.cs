@@ -2,20 +2,30 @@
 
 internal class GardeningPlan
 {
-    public int Seed { get; set; }
-    public int Soil { get; set; }
-    public int Fertilizer { get; set; }
+    public long Seed { get; private set; }
+    public long Soil { get; private set; }
+    public long Fertilizer { get; private set; }
+    public long Water { get; private set; }
+    public long Light { get; private set; }
+    public long Temperature { get; private set; }
+    public long Humidity { get; private set; }
+    public long Location { get; internal set; }
 
-    public GardeningPlan(int seed, GardenAlmanac gardenAlmanac)
+    public GardeningPlan(long seed, GardenAlmanac gardenAlmanac)
     {
         Seed = seed;
         Soil = Map(Seed, gardenAlmanac.SeedsToSoilMapRanges);
         Fertilizer = Map(Soil, gardenAlmanac.SoilToFertilizerMapRanges);
+        Water = Map(Fertilizer, gardenAlmanac.FertilizerToWaterMapRanges);
+        Light = Map(Water, gardenAlmanac.WaterToLightMapRanges);
+        Temperature = Map(Light, gardenAlmanac.LightToTemperatureMapRanges);
+        Humidity = Map(Temperature, gardenAlmanac.TemperatureToHumidityMapRanges);
+        Location = Map(Humidity, gardenAlmanac.HumidityToLocationMapRanges);
     }
 
-    private int Map(int source, List<MapRange> map)
+    private long Map(long source, List<MapRange> map)
     {
-        int destination = source;
+        long destination = source;
         MapRange mapToApply = map.FirstOrDefault(m => m.AppliesTo(source));
         if (mapToApply != null)
         {

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace AdventOfCode.Elves
 {
@@ -22,6 +20,18 @@ namespace AdventOfCode.Elves
         /// <param name="max"></param>
         /// <returns></returns>
         public static bool IsBetween(this int x, int min, int max)
+        {
+            return x <= max && x >= min;
+        }
+
+        /// <summary>
+        /// Returns true when min <= x <= max
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
+        public static bool IsBetween(this long x, long min, long max)
         {
             return x <= max && x >= min;
         }
