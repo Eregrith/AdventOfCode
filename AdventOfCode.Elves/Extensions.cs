@@ -14,6 +14,13 @@ namespace AdventOfCode.Elves
             else return val;
         }
 
+        /// <summary>
+        /// Returns true when min <= x <= max
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
+        /// <returns></returns>
         public static bool IsBetween(this int x, int min, int max)
         {
             return x <= max && x >= min;
@@ -25,7 +32,7 @@ namespace AdventOfCode.Elves
                 && value.Length == 7
                 && value.Substring(1).All(c => "0123456789abcdef".Contains(c));
         }
-        
+
         public static bool IsCaps(this string value)
         {
             return value.All(v => v <= 'Z' && v >= 'A');
