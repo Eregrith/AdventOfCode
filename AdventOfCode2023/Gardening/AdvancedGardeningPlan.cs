@@ -35,31 +35,39 @@
                 LongRange? rangeInMap = GetRangeInMap(subRanges, map);
                 while (rangeInMap != null)
                 {
-                    subRanges.Remove(rangeInMap);
-                    long insideRangeStart = Math.Max(map.SourceStart, rangeInMap.Start);
-                    long insideRangeEnd = Math.Min(rangeInMap.End, map.SourceEnd);
-                    LongRange before = new LongRange(rangeInMap.Start, insideRangeStart - 1);
-                    if (before.Size > 0)
-                        subRanges.Add(before);
-
-                    LongRange inside = new LongRange(insideRangeStart + map.Offset, insideRangeEnd + map.Offset);
-                    inside.Mapped = true;
-                    subRanges.Add(inside);
-
-                    LongRange after = new LongRange(insideRangeEnd + 1, rangeInMap.End);
-                    if (after.Size > 0)
-                        subRanges.Add(after);
+                    ReplaceMappedRangeWithUpToThreeSubRangesFromMap(subRanges, map, rangeInMap);
 
                     rangeInMap = GetRangeInMap(subRanges, map);
                 }
             }
-            subRanges.ForEach(r => r.Mapped = false);
+            CleanMappedStatusOnRanges(subRanges);
             return subRanges;
+        }
+
+        private static void ReplaceMappedRangeWithUpToThreeSubRangesFromMap(List<LongRange> subRanges, MapRange map, LongRange rangeInMap)
+        {
+            subRanges.Remove(rangeInMap);
+
+            long insideRangeStart = Math.Max(map.SourceStart, rangeInMap.Start);
+            long insideRangeEnd = Math.Min(rangeInMap.End, map.SourceEnd);
+
+            LongRange before = new LongRange(rangeInMap.Start, insideRangeStart - 1);
+            LongRange inside = new MappedLongRange(insideRangeStart, insideRangeEnd, map.Offset);
+            LongRange after = new LongRange(insideRangeEnd + 1, rangeInMap.End);
+
+            if (before.Size > 0) subRanges.Add(before);
+            subRanges.Add(inside);
+            if (after.Size > 0) subRanges.Add(after);
         }
 
         private static LongRange? GetRangeInMap(List<LongRange> subRanges, MapRange map)
         {
             return subRanges.FirstOrDefault(r => !r.Mapped && r.Intersects(map.SourceStart, map.SourceEnd));
+        }
+
+        private static void CleanMappedStatusOnRanges(List<LongRange> subRanges)
+        {
+            subRanges.ForEach(r => r.Mapped = false);
         }
     }
 }
