@@ -4,7 +4,13 @@ using AdventOfCode2023.Days;
 
 Console.WriteLine("AdventOfCode2023!");
 
-DaySeven.PartOne();
-DaySeven.PartTwo();
+DayEight.PartOne();
 
-DaySeven.Debug();
+try
+{
+    DayEight.PartTwo();
+}
+catch (Exception e)
+{
+    Console.WriteLine(e.ToString());
+}
