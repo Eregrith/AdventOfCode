@@ -1,22 +1,16 @@
 ﻿namespace AdventOfCode2023.PipeLoops
 {
-    internal class Pipe
+    internal class Pipe : TileElement
     {
-        public int? Distance { get; internal set; }
-        public char Type { get; }
         public bool HasRightConnector => Type == 'S' || Type == '-' || Type == 'F' || Type == 'L';
         public bool HasLeftConnector => Type == 'S' || Type == '-' || Type == '7' || Type == 'J';
         public bool HasTopConnector => Type == 'S' || Type == '|' || Type == 'L' || Type == 'J';
         public bool HasBottomConnector => Type == 'S' || Type == '|' || Type == 'F' || Type == '7';
-        public int X { get; }
-        public int Y { get; }
+        public bool Visited = false;
 
         public Pipe(int x, int y, char type)
-        {
-            Type = type;
-            X = x;
-            Y = y;
-        }
+            : base(x, y, type)
+        { }
 
         internal bool ConnectsTo(Pipe pipe)
         {
