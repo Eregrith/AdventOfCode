@@ -55,7 +55,7 @@ namespace AdventOfCode2020.Days
         public static void PartOne()
         {
             Console.WriteLine("Day Two - Part One");
-            List<PasswordWithPolicy> passwords = PuzzleInputHelper.GetInputLines("DayTwo.txt")
+            List<PasswordWithPolicy> passwords = PuzzleInputHelper.GetInputLinesStatic("DayTwo.txt")
                 .Select(PasswordWithPolicy.FromLine).ToList();
             int validPasswords = passwords.Count(p => p.SatisfiesOldPolicy());
             Console.WriteLine($"There are {validPasswords} valid passwords under old policy");
@@ -65,7 +65,7 @@ namespace AdventOfCode2020.Days
         public static void PartTwo()
         {
             Console.WriteLine("Day Two - Part Two");
-            List<PasswordWithPolicy> passwords = PuzzleInputHelper.GetInputLines("DayTwo.txt")
+            List<PasswordWithPolicy> passwords = PuzzleInputHelper.GetInputLinesStatic("DayTwo.txt")
                 .Select(PasswordWithPolicy.FromLine).ToList();
             int validPasswords = passwords.Count(p => p.SatisfiesNewPolicy());
             Console.WriteLine($"There are {validPasswords} valid passwords under new policy");

@@ -13,7 +13,7 @@ namespace AdventOfCode2021.Days
         public static void PartOne()
         {
             Console.WriteLine("DayFive - Part One");
-            List<VentLine> lines = PuzzleInputHelper.GetInputLines("DayFive.txt").Select(l => VentLine.Parse(l)).ToList();
+            List<VentLine> lines = PuzzleInputHelper.GetInputLinesStatic("DayFive.txt").Select(l => VentLine.Parse(l)).ToList();
             Console.WriteLine($"Input has {lines.Count} lines");
             int width = lines.Max(l => Math.Max(l.Start.X, l.End.X));
             int height = lines.Max(l => Math.Max(l.Start.Y, l.End.Y));
@@ -37,7 +37,7 @@ namespace AdventOfCode2021.Days
         public static void PartTwo()
         {
             Console.WriteLine("DayFive - Part Two");
-            List<VentLine> lines = PuzzleInputHelper.GetInputLines("DayFive.txt").Select(l => VentLine.Parse(l)).ToList();
+            List<VentLine> lines = PuzzleInputHelper.GetInputLinesStatic("DayFive.txt").Select(l => VentLine.Parse(l)).ToList();
             Console.WriteLine($"Input has {lines.Count} lines");
             int width = lines.Max(l => Math.Max(l.Start.X, l.End.X));
             int height = lines.Max(l => Math.Max(l.Start.Y, l.End.Y));

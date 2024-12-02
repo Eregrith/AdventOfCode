@@ -11,7 +11,7 @@ namespace AdventOfCode2021.Days
         public static void PartOne()
         {
             Console.WriteLine("Day three - Part One");
-            List<string> lines = PuzzleInputHelper.GetInputLines("DayThree.txt");
+            List<string> lines = PuzzleInputHelper.GetInputLinesStatic("DayThree.txt");
             Console.WriteLine($"Input has {lines.Count} lines");
             int width = lines[0].Length;
             List<int> ones = new List<int>(width);
@@ -55,7 +55,7 @@ namespace AdventOfCode2021.Days
         public static void PartTwo()
         {
             Console.WriteLine("Day three - Part Twp");
-            List<string> lines = PuzzleInputHelper.GetInputLines("DayThree.txt");
+            List<string> lines = PuzzleInputHelper.GetInputLinesStatic("DayThree.txt");
             Console.WriteLine($"Input has {lines.Count} lines");
             int pos = 0;
             IEnumerable<string> oxygen = lines.ToList();

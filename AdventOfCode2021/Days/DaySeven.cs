@@ -10,7 +10,7 @@ namespace AdventOfCode2021.Days
         public static void PartOne()
         {
             Console.WriteLine("DaySeven - Part One");
-            List<int> lines = PuzzleInputHelper.GetInputLines("DaySeven.txt").SelectMany(l => l.Split(",")).Select(l => int.Parse(l)).ToList();
+            List<int> lines = PuzzleInputHelper.GetInputLinesStatic("DaySeven.txt").SelectMany(l => l.Split(",")).Select(l => int.Parse(l)).ToList();
             lines.Sort();
             Console.WriteLine($"Input has {lines.Count} crabs");
 
@@ -28,7 +28,7 @@ namespace AdventOfCode2021.Days
         public static void PartTwo()
         {
             Console.WriteLine("DaySeven - Part Two");
-            List<int> lines = PuzzleInputHelper.GetInputLines("DaySeven.txt").SelectMany(l => l.Split(",")).Select(l => int.Parse(l)).ToList();
+            List<int> lines = PuzzleInputHelper.GetInputLinesStatic("DaySeven.txt").SelectMany(l => l.Split(",")).Select(l => int.Parse(l)).ToList();
             lines.Sort();
             Console.WriteLine($"Input has {lines.Count} crabs");
 

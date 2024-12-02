@@ -11,7 +11,7 @@ namespace AdventOfCode2021.Days
         public static void PartOne()
         {
             Console.WriteLine("DayTen - Part One");
-            List<string> lines = PuzzleInputHelper.GetInputLines("DayTen.txt");
+            List<string> lines = PuzzleInputHelper.GetInputLinesStatic("DayTen.txt");
             Console.WriteLine($"Input has {lines.Count} lines");
             SyntaxChecker syntaxChecker = new SyntaxChecker(lines);
 
@@ -26,7 +26,7 @@ namespace AdventOfCode2021.Days
         public static void PartTwo()
         {
             Console.WriteLine("DayTen - Part Two");
-            List<string> lines = PuzzleInputHelper.GetInputLines("DayTen.txt");
+            List<string> lines = PuzzleInputHelper.GetInputLinesStatic("DayTen.txt");
             Console.WriteLine($"Input has {lines.Count} lines");
             SyntaxChecker syntaxChecker = new SyntaxChecker(lines);
 

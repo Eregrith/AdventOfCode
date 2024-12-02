@@ -12,7 +12,7 @@ namespace AdventOfCode2020.Days
         public static void PartOne()
         {
             Console.WriteLine("Day Ten - Part One");
-            List<int> adapters = PuzzleInputHelper.GetInputLines("DayTen.txt")
+            List<int> adapters = PuzzleInputHelper.GetInputLinesStatic("DayTen.txt")
                 .Select(Int32.Parse).OrderBy(i => i).ToList();
 
             Console.WriteLine($"There are {adapters.Count} adapters");

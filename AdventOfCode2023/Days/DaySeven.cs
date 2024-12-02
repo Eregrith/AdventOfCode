@@ -15,7 +15,7 @@ namespace AdventOfCode2023.Days
         internal static void PartOne()
         {
             Console.WriteLine("Day seven - Part One");
-            List<string> input = PuzzleInputHelper.GetInputLines("DaySeven.txt");
+            List<string> input = PuzzleInputHelper.GetInputLinesStatic("DaySeven.txt");
             List<CamelCardsHand> hands = input.Select(CamelCardsHand.FromString).ToList();
 
             hands.Sort();
@@ -32,7 +32,7 @@ namespace AdventOfCode2023.Days
         internal static void PartTwo()
         {
             Console.WriteLine("Day seven - Part Two");
-            List<string> input = PuzzleInputHelper.GetInputLines("DaySeven.txt");
+            List<string> input = PuzzleInputHelper.GetInputLinesStatic("DaySeven.txt");
             List<CamelCardsHand> hands = input.Select(CamelCardsHand.FromString).ToList();
 
             hands.Sort(new JokerHandComparison());

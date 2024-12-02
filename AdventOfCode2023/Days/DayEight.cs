@@ -8,7 +8,7 @@ namespace AdventOfCode2023.Days
         internal static void PartOne()
         {
             Console.WriteLine("Day eight - Part One");
-            List<string> input = PuzzleInputHelper.GetInputLines("DayEight.txt");
+            List<string> input = PuzzleInputHelper.GetInputLinesStatic("DayEight.txt");
             DesertMap map = DesertMap.ParseMap(input);
 
             int steps = map.CountStepsTo("ZZZ");
@@ -20,7 +20,7 @@ namespace AdventOfCode2023.Days
         internal static void PartTwo()
         {
             Console.WriteLine("Day eight - Part Two");
-            List<string> input = PuzzleInputHelper.GetInputLines("DayEight.txt");
+            List<string> input = PuzzleInputHelper.GetInputLinesStatic("DayEight.txt");
             DesertMap map = DesertMap.ParseMap(input);
 
             int steps = map.CountGhostStepsTo("Z");

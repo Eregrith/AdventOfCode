@@ -12,7 +12,7 @@ namespace AdventOfCode2021.Days
         public static void PartOne()
         {
             Console.WriteLine("DaySix - Part One");
-            List<int> lanternFish = PuzzleInputHelper.GetInputLines("DaySix.txt").First().Split(",").Select(l => int.Parse(l)).ToList();
+            List<int> lanternFish = PuzzleInputHelper.GetInputLinesStatic("DaySix.txt").First().Split(",").Select(l => int.Parse(l)).ToList();
             Console.WriteLine($"Input has {lanternFish.Count} lanternfish");
             int dayCount = 80;
             for (int day = 0; day < dayCount; day++)
@@ -40,7 +40,7 @@ namespace AdventOfCode2021.Days
         public static void PartTwo()
         {
             Console.WriteLine("DaySix - Part Two");
-            List<LanternFishConscripts> lanternFish = PuzzleInputHelper.GetInputLines("DaySix.txt")
+            List<LanternFishConscripts> lanternFish = PuzzleInputHelper.GetInputLinesStatic("DaySix.txt")
                 .First().Split(",").Select(l => int.Parse(l))
                 .GroupBy(l => l)
                 .Select(l => new LanternFishConscripts { DaysRemaining = l.Key, MemberCount = l.Count() })

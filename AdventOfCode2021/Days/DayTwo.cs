@@ -13,7 +13,7 @@ namespace AdventOfCode2021.Days
         {
             Console.WriteLine("Day two - Part One");
             SubCommandFactory factory = new SubCommandFactory();
-            List<SubCommand> lines = PuzzleInputHelper.GetInputLines("DayTwo.txt").Select(l => factory.Parse(l)).ToList();
+            List<SubCommand> lines = PuzzleInputHelper.GetInputLinesStatic("DayTwo.txt").Select(l => factory.Parse(l)).ToList();
             Console.WriteLine($"Input has {lines.Count} lines");
             ControlledSubmarine sub = new ControlledSubmarine();
 
@@ -28,7 +28,7 @@ namespace AdventOfCode2021.Days
         {
             Console.WriteLine("Day two - Part Twp");
             SubCommandFactory factory = new SubCommandFactory();
-            List<SubCommand> lines = PuzzleInputHelper.GetInputLines("DayTwo.txt").Select(l => factory.Parse(l)).ToList();
+            List<SubCommand> lines = PuzzleInputHelper.GetInputLinesStatic("DayTwo.txt").Select(l => factory.Parse(l)).ToList();
             Console.WriteLine($"Input has {lines.Count} lines");
             AimableControlledSubmarine sub = new AimableControlledSubmarine();
 

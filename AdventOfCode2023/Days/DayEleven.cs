@@ -15,7 +15,7 @@ namespace AdventOfCode2023.Days
         internal static void PartOne()
         {
             Console.WriteLine("Day eleven - Part One");
-            char[][] input = PuzzleInputHelper.GetInputMatrix("DayEleven.txt");
+            char[][] input = PuzzleInputHelper.GetInputMatrixStatic("DayEleven.txt");
             SpaceMap map = SpaceMap.FromInputMatrix(input);
 
             map.ExpandSpace(1);
@@ -29,7 +29,7 @@ namespace AdventOfCode2023.Days
         internal static void PartTwo()
         {
             Console.WriteLine("Day eleven - Part Two");
-            char[][] input = PuzzleInputHelper.GetInputMatrix("DayEleven.txt");
+            char[][] input = PuzzleInputHelper.GetInputMatrixStatic("DayEleven.txt");
             SpaceMap map = SpaceMap.FromInputMatrix(input);
 
             map.ExpandSpace(999999);

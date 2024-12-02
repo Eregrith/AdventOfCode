@@ -12,7 +12,7 @@ namespace AdventOfCode2021.Days
         public static void PartOne()
         {
             Console.WriteLine("DayEight - Part One");
-            List<BrokenDigitalDisplay> lines = PuzzleInputHelper.GetInputLines("DayEight.txt").Select(l => BrokenDigitalDisplay.Parse(l)).ToList();
+            List<BrokenDigitalDisplay> lines = PuzzleInputHelper.GetInputLinesStatic("DayEight.txt").Select(l => BrokenDigitalDisplay.Parse(l)).ToList();
             Console.WriteLine($"Input has {lines.Count} lines");
 
             int sum = lines.Sum(l => l.CountEasyDigits());
@@ -25,7 +25,7 @@ namespace AdventOfCode2021.Days
         public static void PartTwo()
         {
             Console.WriteLine("DayEight - Part Two");
-            List<BrokenDigitalDisplay> lines = PuzzleInputHelper.GetInputLines("DayEight.txt").Select(l => BrokenDigitalDisplay.Parse(l)).ToList();
+            List<BrokenDigitalDisplay> lines = PuzzleInputHelper.GetInputLinesStatic("DayEight.txt").Select(l => BrokenDigitalDisplay.Parse(l)).ToList();
             Console.WriteLine($"Input has {lines.Count} lines");
 
             int sum = lines.Sum(l => l.DecryptOutput());

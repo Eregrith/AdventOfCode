@@ -12,7 +12,7 @@ namespace AdventOfCode2021.Days
         public static void PartOne()
         {
             Console.WriteLine("DayEleven - Part One");
-            List<string> lines = PuzzleInputHelper.GetInputLines("DayEleven.txt");
+            List<string> lines = PuzzleInputHelper.GetInputLinesStatic("DayEleven.txt");
             Console.WriteLine($"Input has {lines.Count} lines");
             DumboOctopusCavern cavern = new DumboOctopusCavern(lines);
             int steps = 100;
@@ -37,7 +37,7 @@ namespace AdventOfCode2021.Days
         public static void PartTwo()
         {
             Console.WriteLine("DayEleven - Part Two");
-            List<string> lines = PuzzleInputHelper.GetInputLines("DayEleven.txt");
+            List<string> lines = PuzzleInputHelper.GetInputLinesStatic("DayEleven.txt");
             Console.WriteLine($"Input has {lines.Count} lines");
 
             DumboOctopusCavern cavern = new DumboOctopusCavern(lines);

@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Days
         public static void PartOne()
         {
             Console.WriteLine("Day eight - Part One");
-            OpcodeInstruction[] opcodes = PuzzleInputHelper.GetInputLines("DayEight.txt")
+            OpcodeInstruction[] opcodes = PuzzleInputHelper.GetInputLinesStatic("DayEight.txt")
                 .Select(OpcodeInstruction.FromLine).ToArray();
             OpcodeMachine opm = new OpcodeMachine(opcodes);
             opm.Run();
@@ -24,7 +24,7 @@ namespace AdventOfCode2020.Days
         public static void PartTwo()
         {
             Console.WriteLine("Day eight - Part Two");
-            OpcodeInstruction[] opcodes = PuzzleInputHelper.GetInputLines("DayEight.txt")
+            OpcodeInstruction[] opcodes = PuzzleInputHelper.GetInputLinesStatic("DayEight.txt")
                 .Select(OpcodeInstruction.FromLine).ToArray();
             OpcodeMachine opm = new OpcodeMachine(opcodes);
 

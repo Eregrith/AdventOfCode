@@ -6,9 +6,11 @@ using System.Text;
 
 namespace AdventOfCode.Elves.IOHelpers
 {
-    public class PuzzleInputHelper
+    public class PuzzleInputHelper : IPuzzleInputHelper
     {
-        public static List<string> GetInputLines(string fileName)
+        public static List<string> GetInputLinesStatic(string fileName) => new PuzzleInputHelper().GetInputLines(fileName);
+        
+        public List<string> GetInputLines(string fileName)
         {
             if (!File.Exists("Inputs/" + fileName))
             {
@@ -18,9 +20,12 @@ namespace AdventOfCode.Elves.IOHelpers
             return File.ReadAllLines("Inputs/" + fileName).ToList();
         }
 
-        public static List<List<string>> GetInputLinesBatched(string fileName, string batchSeparationLine)
+        public static List<List<string>> GetInputLinesBatchedStatic(string fileName, string batchSeparationLine)
+            => new PuzzleInputHelper().GetInputLinesBatched(fileName, batchSeparationLine);
+        
+        public List<List<string>> GetInputLinesBatched(string fileName, string batchSeparationLine)
         {
-            List<string> allLines = GetInputLines(fileName);
+            List<string> allLines = GetInputLinesStatic(fileName);
             List<List<string>> batchedLines = new List<List<string>>();
             List<string> currentBatch = new List<string>();
             foreach (string line in allLines)
@@ -37,7 +42,10 @@ namespace AdventOfCode.Elves.IOHelpers
             return batchedLines;
         }
 
-        public static char[][] GetInputMatrix(string fileName)
+        public static char[][] GetInputMatrixStatic(string fileName)
+            => new PuzzleInputHelper().GetInputMatrix(fileName);
+        
+        public char[][] GetInputMatrix(string fileName)
         {
             if (!File.Exists("Inputs/" + fileName))
             {

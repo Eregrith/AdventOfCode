@@ -14,7 +14,7 @@ namespace AdventOfCode2023.Days
         internal static void PartOne()
         {
             Console.WriteLine("Day four - Part One");
-            List<string> input = PuzzleInputHelper.GetInputLines("DayFour.txt");
+            List<string> input = PuzzleInputHelper.GetInputLinesStatic("DayFour.txt");
             List<Scratchcard> cards = input.Select(Scratchcard.FromLine).ToList();
 
             int sum = cards.Sum(c => c.Score);
@@ -26,7 +26,7 @@ namespace AdventOfCode2023.Days
         internal static void PartTwo()
         {
             Console.WriteLine("Day four - Part Two");
-            List<string> input = PuzzleInputHelper.GetInputLines("DayFour.txt");
+            List<string> input = PuzzleInputHelper.GetInputLinesStatic("DayFour.txt");
             List<Scratchcard> cards = input.Select(Scratchcard.FromLine).ToList();
 
             for (int i = 0; i < cards.Count; i++)

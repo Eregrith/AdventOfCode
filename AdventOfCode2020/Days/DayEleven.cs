@@ -13,7 +13,7 @@ namespace AdventOfCode2020.Days
         public static void PartOne()
         {
             Console.WriteLine("Day Eleven - Part One");
-            char[][] seats = PuzzleInputHelper.GetInputMatrix("DayEleven.txt");
+            char[][] seats = PuzzleInputHelper.GetInputMatrixStatic("DayEleven.txt");
 
             string displayRect = MatrixHelper<char>.GetDisplayRectangle(seats, new System.Drawing.Rectangle(0, 0, 10, 10));
             Console.WriteLine(displayRect);
@@ -46,7 +46,7 @@ namespace AdventOfCode2020.Days
         public static void PartTwo()
         {
             Console.WriteLine("Day Eleven - Part Two");
-            char[][] seats = PuzzleInputHelper.GetInputMatrix("DayEleven.txt");
+            char[][] seats = PuzzleInputHelper.GetInputMatrixStatic("DayEleven.txt");
 
             string displayRect = MatrixHelper<char>.GetDisplayRectangle(seats, new System.Drawing.Rectangle(0, 0, 10, 10));
             Console.WriteLine(displayRect);

@@ -74,7 +74,7 @@ namespace AdventOfCode2020.Days
         public static void PartOne()
         {
             Console.WriteLine("Day four - Part One");
-            List<List<string>> lines = PuzzleInputHelper.GetInputLinesBatched("DayFour.txt", String.Empty);
+            List<List<string>> lines = PuzzleInputHelper.GetInputLinesBatchedStatic("DayFour.txt", String.Empty);
             List<Passport> passports = lines.Select(Passport.FromLines).ToList();
             Console.WriteLine($"There are {passports.Count} passports in the file");
             Console.WriteLine($"There are only {passports.Count(p => p.IsValid())} valid passports");
@@ -84,7 +84,7 @@ namespace AdventOfCode2020.Days
         public static void PartTwo()
         {
             Console.WriteLine("Day four - Part Two");
-            List<List<string>> lines = PuzzleInputHelper.GetInputLinesBatched("DayFour.txt", String.Empty);
+            List<List<string>> lines = PuzzleInputHelper.GetInputLinesBatchedStatic("DayFour.txt", String.Empty);
             List<Passport> passports = lines.Select(Passport.FromLines).ToList();
             Console.WriteLine($"There are only {passports.Count(p => p.IsDataValid())} data-valid passports");
             Console.WriteLine("Day four - End of part Two");

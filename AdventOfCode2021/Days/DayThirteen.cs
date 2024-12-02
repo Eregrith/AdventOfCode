@@ -12,7 +12,7 @@ namespace AdventOfCode2021.Days
         public static void PartOne()
         {
             Console.WriteLine("DayThirteen - Part One");
-            List<string>[] lines = PuzzleInputHelper.GetInputLinesBatched("DayThirteen.txt", "").ToArray();
+            List<string>[] lines = PuzzleInputHelper.GetInputLinesBatchedStatic("DayThirteen.txt", "").ToArray();
             Console.WriteLine($"Input has {lines[0].Count} lines");
             OrigamiManual manual = new OrigamiManual(lines[0], lines[1]);
 
@@ -26,7 +26,7 @@ namespace AdventOfCode2021.Days
         public static void PartTwo()
         {
             Console.WriteLine("DayThirteen - Part Two");
-            List<List<string>> lines = PuzzleInputHelper.GetInputLinesBatched("DayThirteen.txt", "");
+            List<List<string>> lines = PuzzleInputHelper.GetInputLinesBatchedStatic("DayThirteen.txt", "");
             Console.WriteLine($"Input has {lines.Count} lines");
             OrigamiManual manual = new OrigamiManual(lines[0], lines[1]);
 

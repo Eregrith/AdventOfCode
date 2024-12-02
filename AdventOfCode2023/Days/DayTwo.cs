@@ -8,7 +8,7 @@ namespace AdventOfCode2023.Days
         internal static void PartOne()
         {
             Console.WriteLine("Day two - Part One");
-            List<string> lines = PuzzleInputHelper.GetInputLines("DayTwo.txt").ToList();
+            List<string> lines = PuzzleInputHelper.GetInputLinesStatic("DayTwo.txt").ToList();
             Console.WriteLine($"Input has {lines.Count} lines");
             CubeLimits limits = new CubeLimits
             {
@@ -27,7 +27,7 @@ namespace AdventOfCode2023.Days
         internal static void PartTwo()
         {
             Console.WriteLine("Day two - Part Two");
-            List<string> lines = PuzzleInputHelper.GetInputLines("DayTwo.txt").ToList();
+            List<string> lines = PuzzleInputHelper.GetInputLinesStatic("DayTwo.txt").ToList();
             Console.WriteLine($"Input has {lines.Count} lines");
 
             List<GameLine> games = lines.Select(GameLine.ToGameLine).ToList();

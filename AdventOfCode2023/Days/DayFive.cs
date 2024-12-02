@@ -8,7 +8,7 @@ namespace AdventOfCode2023.Days
         internal static void PartOne()
         {
             Console.WriteLine("Day five - Part One");
-            List<List<string>> input = PuzzleInputHelper.GetInputLinesBatched("DayFive.txt", String.Empty);
+            List<List<string>> input = PuzzleInputHelper.GetInputLinesBatchedStatic("DayFive.txt", String.Empty);
             GardenAlmanac almanac = GardenAlmanac.FromInput(input);
 
             long minLocation = almanac.GardeningPlans.Min(g => g.Location);
@@ -20,7 +20,7 @@ namespace AdventOfCode2023.Days
         internal static void PartTwo()
         {
             Console.WriteLine("Day five - Part Two");
-            List<List<string>> input = PuzzleInputHelper.GetInputLinesBatched("DayFive.txt", String.Empty);
+            List<List<string>> input = PuzzleInputHelper.GetInputLinesBatchedStatic("DayFive.txt", String.Empty);
             GardenAlmanac almanac = GardenAlmanac.FromInput(input);
 
             long minLocation = almanac.AdvancedGardeningPlans.Min(a => a.LocationRanges.Min(g => g.Start));

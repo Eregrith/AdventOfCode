@@ -13,7 +13,7 @@ namespace AdventOfCode2023.Days
         internal static void PartOne()
         {
             Console.WriteLine("Day one - Part One");
-            List<string> lines = PuzzleInputHelper.GetInputLines("DayOne.txt").ToList();
+            List<string> lines = PuzzleInputHelper.GetInputLinesStatic("DayOne.txt").ToList();
             Console.WriteLine($"Input has {lines.Count} lines");
 
             int sum = lines.Select(GroupDigits).Sum();
@@ -32,7 +32,7 @@ namespace AdventOfCode2023.Days
         internal static void PartTwo()
         {
             Console.WriteLine("Day one - Part Two");
-            List<string> lines = PuzzleInputHelper.GetInputLines("DayOne.txt").ToList();
+            List<string> lines = PuzzleInputHelper.GetInputLinesStatic("DayOne.txt").ToList();
             Console.WriteLine($"Input has {lines.Count} lines");
 
             int sum = lines.Select(DespellDigits).Select(GroupDigits).Sum();

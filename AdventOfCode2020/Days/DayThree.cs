@@ -16,7 +16,7 @@ namespace AdventOfCode2020.Days
         public static void PartOne()
         {
             Console.WriteLine("Day Three - Part One");
-            char[][] trees = PuzzleInputHelper.GetInputMatrix("DayThree.txt");
+            char[][] trees = PuzzleInputHelper.GetInputMatrixStatic("DayThree.txt");
 
             int ouchies = Weeeeeeeeeeeee(trees, 3, 1);
 
@@ -31,7 +31,7 @@ namespace AdventOfCode2020.Days
         public static void PartTwo()
         {
             Console.WriteLine("Day Three - Part Two");
-            char[][] trees = PuzzleInputHelper.GetInputMatrix("DayThree.txt");
+            char[][] trees = PuzzleInputHelper.GetInputMatrixStatic("DayThree.txt");
 
             long ouchies = Weeeeeeeeeeeee(trees, 1, 1);
             ouchies *= AnswerToPartOne;

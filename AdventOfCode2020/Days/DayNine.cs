@@ -23,7 +23,7 @@ namespace AdventOfCode2020.Days
         public static void PartOne()
         {
             Console.WriteLine("Day Nine - Part One");
-            List<BigInteger> inputs = PuzzleInputHelper.GetInputLines("DayNine.txt")
+            List<BigInteger> inputs = PuzzleInputHelper.GetInputLinesStatic("DayNine.txt")
                 .Select(BigInteger.Parse).ToList();
             var valids = inputs.Select((value, index) =>
             {
@@ -38,7 +38,7 @@ namespace AdventOfCode2020.Days
         public static void PartTwo()
         {
             Console.WriteLine("Day Nine - Part Two");
-            List<BigInteger> inputs = PuzzleInputHelper.GetInputLines("DayNine.txt")
+            List<BigInteger> inputs = PuzzleInputHelper.GetInputLinesStatic("DayNine.txt")
                 .Select(BigInteger.Parse).ToList();
             BigInteger answerToPartOne = 373803594;
             BigInteger runningSum = inputs[0];

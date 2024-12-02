@@ -12,7 +12,7 @@ namespace AdventOfCode2020.Days
         public static void PartOne()
         {
             Console.WriteLine("Day six - Part One");
-            List<List<string>> lines = PuzzleInputHelper.GetInputLinesBatched("DaySix.txt", String.Empty);
+            List<List<string>> lines = PuzzleInputHelper.GetInputLinesBatchedStatic("DaySix.txt", String.Empty);
             List<string> uniqueAnswers = new List<string>();
             lines.Aggregate(uniqueAnswers, (ua, answers) => {
                 ua.Add(String.Join("", String.Join("", answers).Distinct()));
@@ -27,7 +27,7 @@ namespace AdventOfCode2020.Days
         public static void PartTwo()
         {
             Console.WriteLine("Day six - Part Two");
-            List<List<string>> lines = PuzzleInputHelper.GetInputLinesBatched("DaySix.txt", String.Empty);
+            List<List<string>> lines = PuzzleInputHelper.GetInputLinesBatchedStatic("DaySix.txt", String.Empty);
             List<string> uniqueAnswers = new List<string>();
             lines.Aggregate(uniqueAnswers, (ua, answers) => {
                 ua.Add(String.Join("", String.Join("", answers).Distinct()));

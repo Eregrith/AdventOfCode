@@ -59,7 +59,7 @@ namespace AdventOfCode2020.Days
         public static void PartOne()
         {
             Console.WriteLine("Day seven - Part One");
-            List<BagRule> rules = PuzzleInputHelper.GetInputLines("DaySeven_Solene.txt")
+            List<BagRule> rules = PuzzleInputHelper.GetInputLinesStatic("DaySeven_Solene.txt")
                 .Select(BagRule.FromLine)
                 .ToList();
             Console.WriteLine($"There are {rules.Count} rules");
@@ -81,7 +81,7 @@ namespace AdventOfCode2020.Days
         public static void PartTwo()
         {
             Console.WriteLine("Day seven - Part Two");
-            List<BagRule> rules = PuzzleInputHelper.GetInputLines("DaySeven.txt")
+            List<BagRule> rules = PuzzleInputHelper.GetInputLinesStatic("DaySeven.txt")
                 .Select(BagRule.FromLine)
                 .ToList();
 

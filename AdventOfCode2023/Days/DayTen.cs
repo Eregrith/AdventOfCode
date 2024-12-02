@@ -8,7 +8,7 @@ namespace AdventOfCode2023.Days
         internal static void PartOne()
         {
             Console.WriteLine("Day ten - Part One");
-            char[][] input = PuzzleInputHelper.GetInputMatrix("DayTen.txt");
+            char[][] input = PuzzleInputHelper.GetInputMatrixStatic("DayTen.txt");
 
             PipeLoopMatrix matrix = PipeLoopMatrix.FromInput(input);
 
@@ -19,7 +19,7 @@ namespace AdventOfCode2023.Days
         internal static void PartTwo()
         {
             Console.WriteLine("Day ten - Part Two");
-            List<string> input = PuzzleInputHelper.GetInputLines("DayTen.txt");
+            List<string> input = PuzzleInputHelper.GetInputLinesStatic("DayTen.txt");
 
             Console.WriteLine("Day ten - End of part Two");
         }

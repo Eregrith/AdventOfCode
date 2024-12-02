@@ -13,7 +13,7 @@ namespace AdventOfCode2021.Days
         public static void PartOne()
         {
             Console.WriteLine("DayNine - Part One");
-            char[][] soil = PuzzleInputHelper.GetInputMatrix("DayNine.txt");
+            char[][] soil = PuzzleInputHelper.GetInputMatrixStatic("DayNine.txt");
             Console.WriteLine($"Input is a matrix of {soil[0].Length} width and {soil.Length} height");
             int[][] convertedSoil = soil.Select(line => line.Select(c => int.Parse(c + "")).ToArray()).ToArray();
             LavaTubes tubeSystem = new LavaTubes(convertedSoil);
@@ -26,7 +26,7 @@ namespace AdventOfCode2021.Days
         public static void PartTwo()
         {
             Console.WriteLine("DayNine - Part Two");
-            char[][] soil = PuzzleInputHelper.GetInputMatrix("DayNine.txt");
+            char[][] soil = PuzzleInputHelper.GetInputMatrixStatic("DayNine.txt");
             Console.WriteLine($"Input is a matrix of {soil[0].Length} width and {soil.Length} height");
             int[][] convertedSoil = soil.Select(line => line.Select(c => int.Parse(c + "")).ToArray()).ToArray();
             LavaTubes tubeSystem = new LavaTubes(convertedSoil);
