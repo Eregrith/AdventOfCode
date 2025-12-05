@@ -20,6 +20,32 @@ namespace AdventOfCode2025
         }
     }
 
+    internal class SpecialIDValidityChecker : IIDValidityChecker
+    {
+        public bool Check(string id)
+        {
+            int size = id.Length / 2;
+            while (size > 0)
+            {
+                List<string> parts = SplitInPartsOfSize(id, size);
+                if (parts.Distinct().Count() == 1) return false;
+                size--;
+            }
+            return true;
+        }
+
+        private List<string> SplitInPartsOfSize(string id, int size)
+        {
+            List<string> parts = new List<string>();
+            if (id.Length % size != 0) return parts;
+            for (int i = 0; i < id.Length; i += size)
+            {
+                parts.Add(id.Substring(i, size));
+            }
+            return parts;
+        }
+    }
+
     internal class IDCrawler(IIDValidityChecker checker)
     {
         internal List<long> Crawl(string idRange)
@@ -47,7 +73,7 @@ namespace AdventOfCode2025
             List<String> lines = inputHelper.GetInputLines("DayTwo.txt")[0].Split(",").ToList();
             long sum = 0;
             var crawler = new IDCrawler(new IDValidityChecker());
-            
+
             foreach (string line in lines)
             {
                 var invalidIds = crawler.Crawl(line);
@@ -55,6 +81,20 @@ namespace AdventOfCode2025
             }
 
             Console.WriteLine($"Part One: Sum of invalid IDs: {sum}");
+        }
+        public void PartTwo()
+        {
+            List<String> lines = inputHelper.GetInputLines("DayTwo.txt")[0].Split(",").ToList();
+            long sum = 0;
+            var crawler = new IDCrawler(new SpecialIDValidityChecker());
+
+            foreach (string line in lines)
+            {
+                var invalidIds = crawler.Crawl(line);
+                sum += invalidIds.Sum();
+            }
+
+            Console.WriteLine($"Part Two: Sum of invalid IDs: {sum}");
         }
     }
 }

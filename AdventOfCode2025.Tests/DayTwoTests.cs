@@ -93,5 +93,32 @@ namespace AdventOfCode2025.Tests
 
             result.Should().BeEquivalentTo(new List<int> { 11, 22 });
         }
+
+        [TestCase("12")]
+        [TestCase("23")]
+        [TestCase("34")]
+        [TestCase("341")]
+        [TestCase("34534")]
+        public void SpecialIDValidityChecker_Should_Declare_Valid_ID_As_Valid(string id)
+        {
+            SpecialIDValidityChecker checker = new SpecialIDValidityChecker();
+
+            checker.Check(id).Should().BeTrue();
+        }
+
+        [TestCase("11")]
+        [TestCase("3232")]
+        [TestCase("123123")]
+        [TestCase("111")]
+        [TestCase("121212")]
+        [TestCase("446446")]
+        [TestCase("824824824")]
+        [TestCase("2121212121")]
+        public void SpecialIDValidityChecker_Should_Detect_Invalid_IDs(string id)
+        {
+            SpecialIDValidityChecker checker = new SpecialIDValidityChecker();
+
+            checker.Check(id).Should().BeFalse();
+        }
     }
 }
