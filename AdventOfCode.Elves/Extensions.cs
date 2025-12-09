@@ -47,5 +47,10 @@ namespace AdventOfCode.Elves
         {
             return value.All(v => v <= 'Z' && v >= 'A');
         }
+
+        public static bool IsDigit(this char c)
+        {
+            return c >= '0' && c <= '9';
+        }
     }
 }
